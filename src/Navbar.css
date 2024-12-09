@@ -1,0 +1,20 @@
+nav {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  ul {
+    display: flex;
+    gap: 20px;
+  }
+  li {
+    font-size: 20px;
+    background-color: #00596d;
+    padding: 10px;
+    list-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}

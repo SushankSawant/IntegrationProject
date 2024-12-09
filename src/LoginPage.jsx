@@ -10,20 +10,29 @@ function LoginPage() {
     username: "",
     password: "",
   });
-  const {} = useAuth();
+  const navigate = useNavigate();
+
+  let loginStatus;
+
+  useEffect(() => {
+    loginStatus = localStorage.getItem("login");
+    console.log(loginStatus);
+    if (loginStatus == "true") {
+      navigate("/");
+    }
+  }, []);
+  // const {} = useAuth();
 
   // console.log(loginData);
 
-  const navigate = useNavigate();
-
-  const [apiLoginRes, setApiLoginRes] = useState();
+  const [apiLoginRes, setApiLoginRes] = useState(null);
   console.log(apiLoginRes);
   function login(e) {
     e.preventDefault();
     console.log(loginData, "login data posted");
     axios
       .post(
-        "http://192.168.1.42:8000/api/v1/testapp/login/",
+        "http://192.168.1.42:8000/api/v1/testapp/login",
         {},
         {
           headers: {
@@ -35,23 +44,22 @@ function LoginPage() {
       )
       .then((res) => {
         setApiLoginRes(res);
+        localStorage.setItem("login", true);
         localStorage.setItem("token", JSON.stringify(res.data));
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
       });
+    // console.log(apiLoginRes?.status);
   }
 
   return (
     <div className="login_page">
       <form onSubmit={login} className="login_wrapper">
-        {apiLoginRes?.status == 200 && (
-          <p className="successPop">Login Successfull !!</p>
+        {apiLoginRes !== null && apiLoginRes?.status !== 200 && (
+          <p className="errorPop">Wrong Input !!</p>
         )}
-        {/* {apiLoginRes?.status !== 200 && apiLoginRes?.detail (
-          <p className="errorPop">Invalid Input</p>
-        )} */}
         <h1 className="form_title">Login</h1>
         <InputBox
           title="User Name"

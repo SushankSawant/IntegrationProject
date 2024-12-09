@@ -11,15 +11,18 @@ import ChangePassword from "./ChangePassword";
 
 function App() {
   // const [count, setCount] = useState(0);
+  // const {}
 
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/changepassword" element={<ChangePassword />} />
-          <Route element={<Home />} path="/" exact />
+          <Route element={<PrivateRoute />}>
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/changepassword" element={<ChangePassword />} />
+            <Route element={<Home />} path="/" exact />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
