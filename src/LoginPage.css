@@ -1,0 +1,148 @@
+/* * {
+  outline: 1px red solid;
+} */
+
+body {
+  background-color: #f1f0e8;
+}
+
+.login_page {
+  /* background-color: #f1f0e8; */
+  background: url("src/images/abstract-dark-blue-futuristic-digital-grid-background.jpg");
+  /* backface-visibility: ; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* width: 100%; */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form_title {
+  color: #fff;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.login_wrapper {
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.301);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  /* height: 400px; */
+  background-color: #b3c8cf;
+  border-radius: 10px;
+  /* width: 40%; */
+  /* height: 500px; */
+  padding: 50px;
+
+  svg {
+    /* background-color: #89a8b2; */
+    border-radius: 50%;
+    padding: 10px;
+  }
+}
+
+button {
+  width: 150px;
+  padding: 10px;
+  font-size: 20px;
+  outline: none;
+  border: none;
+  margin-top: 5px;
+  border-radius: 10px;
+  color: #e5e1da;
+  background-color: #4f94ab;
+  &&:hover {
+    background-color: #e5e1da;
+    color: #4f94ab;
+    cursor: pointer;
+  }
+}
+
+.inputHolder {
+  /* width: 100%; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  label {
+    color: #fff;
+    font-size: 23px;
+    text-align: left;
+  }
+
+  .showIcon {
+    position: absolute;
+    top: 60%;
+    height: 20px;
+    width: 20px;
+    right: 20px;
+    cursor: pointer;
+    &&:hover {
+      transform: scale(0.9);
+    }
+  }
+
+  .validateBoxHide {
+    opacity: 0;
+  }
+  .input__style {
+    color: #fff;
+    background-color: #89a8b2;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 10px;
+
+    &.error {
+      animation: shake 0.2s ease-in-out 0s 2;
+      box-shadow: 0 0 0.5em red;
+    }
+  }
+}
+.errorPop {
+  color: red;
+  font-size: 18px;
+  position: fixed;
+  top: 10px;
+  /* right: 10px; */
+  /* bottom: ; */
+  background-color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  animation: shake 0.2s ease-in-out 0s 2;
+}
+
+.successPop {
+  color: #00be1d;
+  font-size: 18px;
+  position: fixed;
+  /* bottom: ; */
+  top: 10px;
+  /* right: 10px; */
+  background-color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+}
+@keyframes shake {
+  0% {
+    margin-left: 0rem;
+  }
+  25% {
+    margin-left: 0.5rem;
+  }
+  75% {
+    margin-left: -0.5rem;
+  }
+  100% {
+    margin-left: 0rem;
+  }
+}
