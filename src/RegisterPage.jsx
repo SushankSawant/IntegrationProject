@@ -1,11 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import "./LoginPage.css";
 import "./styling/RegisterPage.css";
 import InputBox from "./InputBox";
 import Dropdown from "./DropDown";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./Context/AuthContext";
 
 function RegisterPage() {
+  const [userGroupArr, setUserGroupArr] = useState(null);
+  let loginstatus = localStorage.getItem("login");
+  const navigate = useNavigate();
+
+  const { loginStatus } = useAuth();
+  useEffect(() => {
+    if (loginStatus === true) {
+      navigate("/");
+    }
+    axios
+      .get("http://192.168.1.42:8000/api/v1/testapp/list_usergroups", {
+        headers: {
+          "access-control-allow-origin": "*",
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setUserGroupArr(res.data.data);
+      });
+  }, []);
+
   const [detail, setDetail] = useState({
     firstname: "",
     lastname: "",
@@ -263,7 +287,7 @@ function RegisterPage() {
               usergroup: e,
             }));
           }}
-          reqArr={["Admin", "frontend"]}
+          reqArr={userGroupArr}
         />
         <button>Submit</button>
         <a

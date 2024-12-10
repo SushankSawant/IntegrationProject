@@ -1,13 +1,36 @@
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./Context/AuthContext";
 
 function Navbar() {
   const navigate = useNavigate();
+  const { logoutAuth } = useAuth();
 
   return (
     <nav>
       <ul>
+        <li
+          onClick={() => {
+            navigate("/changepassword");
+          }}
+        >
+          Change Password
+        </li>
+        <li
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Home
+        </li>
+        <li
+          onClick={() => {
+            navigate("/usergroup");
+          }}
+        >
+          User Group
+        </li>
         <li
           onClick={() => {
             let token = JSON.parse(localStorage.getItem("token"));
@@ -25,28 +48,15 @@ function Navbar() {
               .then((res) => {
                 console.log(res);
               })
-              .catch((err) => console.log(err));
-            // localStorage.setItem("login", false);
-            localStorage.removeItem("token");
-            localStorage.setItem("login", false);
-            navigate("/login");
+              .catch((err) => console.log(err))
+              .finally(() => {
+                logoutAuth();
+                localStorage.removeItem("token");
+                navigate("/login");
+              });
           }}
         >
           Logout
-        </li>
-        <li
-          onClick={() => {
-            navigate("/changepassword");
-          }}
-        >
-          Change Password
-        </li>
-        <li
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Home
         </li>
       </ul>
     </nav>

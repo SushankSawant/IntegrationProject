@@ -11,21 +11,21 @@ function LoginPage() {
     password: "",
   });
   const navigate = useNavigate();
-
-  let loginStatus;
+  const { loginStatus, loginAuth } = useAuth();
+  console.log(loginStatus, "AT LOGIN PAGE");
+  // let loginStatus;
 
   useEffect(() => {
-    loginStatus = localStorage.getItem("login");
-    console.log(loginStatus);
-    if (loginStatus == "true") {
+    /*  if (loginStatus) {
       navigate("/");
-    }
+    } */
+    // loginStatus = localStorage.getItem("login");
+    // console.log(loginStatus);
+    // console.log(status);
   }, []);
-  // const {} = useAuth();
-
-  // console.log(loginData);
 
   const [apiLoginRes, setApiLoginRes] = useState(null);
+  const [apiLoginErr, setApiLoginErr] = useState(null);
   console.log(apiLoginRes);
   function login(e) {
     e.preventDefault();
@@ -44,12 +44,13 @@ function LoginPage() {
       )
       .then((res) => {
         setApiLoginRes(res);
-        localStorage.setItem("login", true);
         localStorage.setItem("token", JSON.stringify(res.data));
+        loginAuth(res.data);
         navigate("/");
+        setApiLoginErr(null);
       })
       .catch((err) => {
-        console.log(err);
+        setApiLoginErr(err);
       });
     // console.log(apiLoginRes?.status);
   }
@@ -57,8 +58,8 @@ function LoginPage() {
   return (
     <div className="login_page">
       <form onSubmit={login} className="login_wrapper">
-        {apiLoginRes !== null && apiLoginRes?.status !== 200 && (
-          <p className="errorPop">Wrong Input !!</p>
+        {apiLoginErr && apiLoginErr?.message && (
+          <p className="errorPop">{apiLoginErr?.message}!!</p>
         )}
         <h1 className="form_title">Login</h1>
         <InputBox

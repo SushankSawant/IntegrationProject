@@ -63,7 +63,7 @@ function Dropdown({
   }
   let filterList = useMemo(
     () =>
-      reqArr.filter((e) => {
+      reqArr?.filter((e) => {
         if (searchIn !== "") {
           return dataType === "string"
             ? e.toLowerCase().includes(searchIn.toLowerCase())
@@ -90,7 +90,9 @@ function Dropdown({
   return (
     <div
       id={dropTitle}
-      className={reqArr.length > 0 ? "dropDownHolder" : "dropDownHolder hidden"}
+      className={
+        reqArr?.length > 0 ? "dropDownHolder" : "dropDownHolder hidden"
+      }
       ref={dropdownRef}
     >
       <button

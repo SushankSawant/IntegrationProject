@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -8,20 +8,21 @@ import RegisterPage from "./RegisterPage";
 import Home from "./Home";
 import PrivateRoute from "./PrivateRoute";
 import ChangePassword from "./ChangePassword";
+import UserGroup from "./UserGroup";
 
 function App() {
   // const [count, setCount] = useState(0);
-  // const {}
 
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/register" element={<RegisterPage />} />
           <Route element={<PrivateRoute />}>
-            <Route path="/register" element={<RegisterPage />} />
             <Route path="/changepassword" element={<ChangePassword />} />
             <Route element={<Home />} path="/" exact />
+            <Route element={<UserGroup />} path="/usergroup" />
           </Route>
         </Routes>
       </BrowserRouter>

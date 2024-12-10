@@ -4,6 +4,10 @@
   justify-content: center;
   /* height: 100%; */
   padding: 30px;
+  background: url("src/images/abstract-dark-blue-futuristic-digital-grid-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 * {
@@ -48,7 +52,10 @@
 .validationForm {
   display: flex;
   flex-direction: column;
-  background-color: #b3c8cf;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #22283145;
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
   align-items: center;
   gap: 15px;
   padding-bottom: 20px;
@@ -137,7 +144,7 @@ h1 {
       position: absolute;
       right: 10px;
       border-radius: 50%;
-      background-color: #ff0000;
+      background-color: #00adb5;
       z-index: 10;
       box-shadow: -1px 0px 5px rgb(0, 0, 0);
     }
@@ -164,8 +171,9 @@ h1 {
   position: absolute;
   height: 0;
   z-index: 100;
-  background-color: #b3c8cf;
-  color: #fff;
+  height: 150px;
+  background-color: #222831;
+  color: #00adb5;
   width: 100%;
   list-style: none;
   overflow: auto;
@@ -180,7 +188,7 @@ h1 {
 
   input {
     /* padding-left: 10px; */
-    background-color: #2f2f2f;
+    background-color: #2228319b;
     color: #fff;
     width: 100%;
     outline: none;
@@ -209,7 +217,7 @@ h1 {
     justify-content: space-between;
 
     &&:hover {
-      background-color: #ff004c42;
+      background-color: #00adb5;
       color: white;
     }
     img {
@@ -223,7 +231,7 @@ h1 {
 }
 
 .active_dd_option {
-  background-color: #ff004cb0;
+  background-color: #00adb5;
   color: white;
 }
 

@@ -41,7 +41,7 @@ function ChangePassword() {
   return (
     <>
       <Navbar />
-      <div className="register_page">
+      <div className="login_page">
         <div className="validationForm">
           <InputBox
             id={"username"}

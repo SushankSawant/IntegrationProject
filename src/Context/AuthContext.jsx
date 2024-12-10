@@ -4,15 +4,27 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(null);
+  const [loginStatus, setLoginStatus] = useState(false);
+  console.log(token, "IN AUTH CONTEXT");
 
-  //   const navigate = useNavigate();
+  function loginAuth(token) {
+    setLoginStatus(true);
+    setToken(token);
+    console.log(loginStatus, "IN LOGIN AUTH");
+  }
 
-  return <AuthContext.Provider value={token}>{children}</AuthContext.Provider>;
+  function logoutAuth() {
+    setLoginStatus(false);
+    setToken(null);
+    console.log(loginStatus, "IN LOGOUT AUTH");
+  }
+
+  return (
+    <AuthContext.Provider value={{ token, loginStatus, loginAuth, logoutAuth }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-
-  return context;
-};
+export const useAuth = () => useContext(AuthContext);
