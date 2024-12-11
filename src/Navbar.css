@@ -1,24 +1,41 @@
 nav {
-  background-color: #000;
-  color: #222831;
-  padding: 10px;
-  position: fixed;
+  background-color: #211a1a5f;
+  backdrop-filter: blur(3px);
+  /* color: #222831; */
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
   top: 0;
   width: 100%;
+  z-index: 10;
+  h1 {
+    color: #fff;
+    text-shadow: 0px 0px 20px #ffffff;
+  }
+
   ul {
     display: flex;
     gap: 20px;
+    /* width: 80%; */
     align-items: center;
     justify-content: center;
   }
   li {
-    font-size: 20px;
-    width: 15%;
+    font-size: 1vw;
+    /* width: 20%; */
+    /* padding: 10px; */
     text-align: center;
-    background-color: #00adb5;
-    padding: 10px;
+    /* background-color: #00acb56b; */
+    padding: 15px;
+    color: #fff;
     list-style: none;
     border-radius: 10px;
     cursor: pointer;
+    text-transform: uppercase;
+    &&:hover {
+      background-color: #00acb57c;
+    }
   }
 }

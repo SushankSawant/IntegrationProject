@@ -76,12 +76,37 @@ button:focus-visible {
   transition: 0.5s all ease;
 }
 
-.AAAAA {
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #393e46;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00adb5;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00858c;
+}
+
+::selection {
+  background-color: #00adb5;
+}
+
+.homeWrapper {
   display: flex;
   background-color: #393e46;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 10px;
+  align-items: flex-start;
+
+  /* height: 110vh; */
   width: 100%;
   h1 {
     color: #eeeeee;
@@ -92,15 +117,18 @@ button:focus-visible {
 
 table {
   text-align: center;
-  box-shadow: 0px 0px 20px #0865b18c;
+  box-shadow: 0px 0px 20px #0000006d;
   border-radius: 10px;
   padding: 10px;
   font-size: 1.2vw;
+  width: 100%;
+  position: relative;
   thead {
     /* border-radius: 20px; */
-    background-color: #393e46;
+    background-color: #242528;
     color: #fff;
     th {
+      border-radius: 5px;
       padding: 10px;
       text-transform: capitalize;
     }
@@ -125,18 +153,24 @@ table {
 
 .pagination {
   display: flex;
-  justify-content: space-between;
-  padding: 25px;
-  /* margin-top: 30px; */
-  background-color: #393e46;
-  position: absolute;
+  justify-content: space-around;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #211a1a73;
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
+  position: sticky;
   bottom: 0;
   width: 100%;
 
   .page-button {
     /* padding: 15px; */
-    height: 45px;
-    width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3vw;
+    width: 3vw;
+    font-size: 1.35vw;
     background-color: #1f1f1f;
     border: none;
     border-radius: 10px;
@@ -151,8 +185,18 @@ table {
 
   .leftArrow,
   .rightArrow {
-    width: 50px;
-    height: 50px;
+    width: 4vw;
+    height: 4vw;
+    filter: invert(1);
+    background-color: #000;
+    padding: 10px;
+    border-radius: 50%;
+    transition: 0.5s all ease;
+    &&:hover {
+      /* transform: scale(0.8) rotate(180deg); */
+      opacity: 0.5;
+      cursor: pointer;
+    }
   }
   .rightArrow {
     transform: rotate(180deg);
@@ -167,3 +211,68 @@ table {
 }
 
 /* PAGINATION */
+
+.display {
+  width: 100%;
+}
+
+.box {
+  background-color: #1f1f1f;
+  width: 30%;
+  /* height: 250px; */
+  color: #00adb5;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  gap: 5px;
+  p {
+    border-radius: 5px;
+    background-color: #393e46;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    text-transform: capitalize;
+
+    &&:hover {
+      background-color: #393e469f;
+    }
+  }
+}
+
+.box.usergroups {
+  width: 100%;
+  box-shadow: 0px 0px 20px #0000006d;
+  p {
+    cursor: auto;
+  }
+}
+
+.search_userList {
+  /* box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.638); */
+  /* border: 1px solid rgba(255, 255, 255, 0.18); */
+  /* background: #22283145; */
+  /* backdrop-filter: blur(2px); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  input {
+    color: #eeeeee;
+    background-color: #4e535b;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 50%;
+  }
+
+  button {
+    padding: 10px;
+    font-size: 20px;
+    width: 80px;
+  }
+}

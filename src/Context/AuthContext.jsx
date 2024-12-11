@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import React, { Children, createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -9,19 +10,31 @@ export const AuthProvider = ({ children }) => {
   console.log(token, "IN AUTH CONTEXT");
 
   function loginAuth(token) {
-    setLoginStatus(true);
+    /* setLoginStatus(true);
     setToken(token);
-    console.log(loginStatus, "IN LOGIN AUTH");
+    console.log(loginStatus, "IN LOGIN AUTH"); */
   }
 
   function logoutAuth() {
-    setLoginStatus(false);
+    /* setLoginStatus(false);
     setToken(null);
-    console.log(loginStatus, "IN LOGOUT AUTH");
+    console.log(loginStatus, "IN LOGOUT AUTH"); */
   }
 
+  const isTokenExpired = (token) => {
+    if (!token) return true;
+    try {
+      return jwtDecode(token).exp < Date.now() / 1000;
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return true;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ token, loginStatus, loginAuth, logoutAuth }}>
+    <AuthContext.Provider
+      value={{ token, loginStatus, loginAuth, logoutAuth, isTokenExpired }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,37 +1,32 @@
-import React, { useState } from "react";
-import InputBox from "./InputBox";
-import Navbar from "./Navbar";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 function UserGroup() {
-  const [usergroup, setUserGroupArr] = useState({ usergroup: "" });
+  const [userGroupArr, setUserGroupArr] = useState(null);
 
-  function addUserGroup(e) {
-    e.preventDefault();
+  useEffect(() => {
     axios
-      .post("http://192.168.1.42:8000/api/v1/testapp/usergroups", usergroup)
+      .get("http://192.168.1.42:8000/api/v1/testapp/list_usergroups", {
+        headers: {
+          "access-control-allow-origin": "*",
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
       .then((res) => {
         console.log(res);
-      })
-      .catch((err) => console.log(err));
-    setUserGroupArr((p) => ({ ...p, usergroup: "" }));
-  }
+        setUserGroupArr(res.data.data);
+      });
+  }, []);
 
   return (
-    <div className="login_page">
-      <Navbar />
-      <form onSubmit={addUserGroup} className="login_wrapper">
-        <InputBox
-          title="User Group"
-          id={"usergroup"}
-          value={usergroup.usergroup}
-          onChange={(e) => {
-            setUserGroupArr((p) => ({ ...p, usergroup: e.target.value }));
-            console.log(e.target.value);
-          }}
-        />
-        <button>Add</button>
-      </form>
+    <div className="box usergroups">
+      {userGroupArr?.map((e, i) => {
+        return (
+          <p key={`usergroups_${i}`}>
+            {i + 1}. {e}
+          </p>
+        );
+      })}
     </div>
   );
 }

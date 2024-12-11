@@ -11,55 +11,54 @@ function LoginPage() {
     password: "",
   });
   const navigate = useNavigate();
-  const { loginStatus, loginAuth } = useAuth();
-  console.log(loginStatus, "AT LOGIN PAGE");
-  // let loginStatus;
+  const { loginAuth } = useAuth();
+  // console.log(loginStatus, "AT LOGIN PAGE");
+  let loginStatus;
 
   useEffect(() => {
-    /*  if (loginStatus) {
+    loginStatus = localStorage.getItem("token");
+    if (loginStatus) {
       navigate("/");
-    } */
-    // loginStatus = localStorage.getItem("login");
-    // console.log(loginStatus);
-    // console.log(status);
+    }
   }, []);
 
   const [apiLoginRes, setApiLoginRes] = useState(null);
   const [apiLoginErr, setApiLoginErr] = useState(null);
-  console.log(apiLoginRes);
   function login(e) {
     e.preventDefault();
     console.log(loginData, "login data posted");
-    axios
-      .post(
-        "http://192.168.1.42:8000/api/v1/testapp/login",
-        {},
-        {
-          headers: {
-            // "Content-Type": "application/json",
-            username: loginData.username,
-            password: loginData.password,
-          },
-        }
-      )
-      .then((res) => {
-        setApiLoginRes(res);
-        localStorage.setItem("token", JSON.stringify(res.data));
-        loginAuth(res.data);
-        navigate("/");
-        setApiLoginErr(null);
-      })
-      .catch((err) => {
-        setApiLoginErr(err);
-      });
-    // console.log(apiLoginRes?.status);
+    if (loginData.username && loginData.password) {
+      axios
+        .post(
+          "http://192.168.1.42:8000/api/v1/testapp/login",
+          {},
+          {
+            headers: {
+              // "Content-Type": "application/json",
+              username: loginData.username,
+              password: loginData.password,
+            },
+          }
+        )
+        .then((res) => {
+          localStorage.setItem("token", JSON.stringify(res.data));
+          setApiLoginRes(res);
+          loginAuth(res.data);
+          setApiLoginErr(null);
+          navigate("/");
+        })
+        .catch((err) => {
+          setApiLoginErr(err.status);
+        });
+      console.log(apiLoginErr?.status);
+    }
   }
 
   return (
     <div className="login_page">
       <form onSubmit={login} className="login_wrapper">
-        {apiLoginErr && apiLoginErr?.message && (
-          <p className="errorPop">{apiLoginErr?.message}!!</p>
+        {apiLoginErr == 401 && (
+          <p className="errorPop">Invalid Username or Password!!</p>
         )}
         <h1 className="form_title">Login</h1>
         <InputBox
@@ -72,6 +71,9 @@ function LoginPage() {
               username: e.target.value.toLowerCase(),
             }));
           }}
+          onFocus={() => {
+            setApiLoginErr(null);
+          }}
         />
         <InputBox
           title="Password"
@@ -83,6 +85,9 @@ function LoginPage() {
               ...p,
               password: e.target.value.trim(),
             }));
+          }}
+          onFocus={() => {
+            setApiLoginErr(null);
           }}
         />
         <button

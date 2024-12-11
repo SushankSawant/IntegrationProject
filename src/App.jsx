@@ -9,6 +9,7 @@ import Home from "./Home";
 import PrivateRoute from "./PrivateRoute";
 import ChangePassword from "./ChangePassword";
 import UserGroup from "./UserGroup";
+import AddUserGroup from "./AddUserGroup";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -22,7 +23,8 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/changepassword" element={<ChangePassword />} />
             <Route element={<Home />} path="/" exact />
-            <Route element={<UserGroup />} path="/usergroup" />
+            <Route element={<UserGroup />} path="/usergroups"></Route>
+            <Route element={<AddUserGroup />} path="/addusergroup" />
           </Route>
         </Routes>
       </BrowserRouter>

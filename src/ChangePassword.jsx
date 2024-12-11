@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import "./styling/RegisterPage.css";
 import InputBox from "./InputBox";
 import Navbar from "./Navbar";
+import axios from "axios";
 
 function ChangePassword() {
   const [detail, setDetail] = useState({
@@ -9,6 +10,8 @@ function ChangePassword() {
     oldpassword: "",
     newpassword: "",
   });
+
+  const [apiRes, setApiRes] = useState(null);
 
   const [passValid, setPassValid] = useState({
     show: false,
@@ -34,21 +37,92 @@ function ChangePassword() {
     }));
     setDetail((prev) => ({
       ...prev,
-      password: e.target.value.trim().slice(0, 18),
+      newpassword: e.target.value.trim().slice(0, 18),
     }));
+  }
+
+  let required = ["username", "password", "newpassword"];
+
+  function checkValidation(obj, req) {
+    let response = [];
+    req
+      .map((e) => {
+        return e.split(".");
+      })
+      .forEach((e) => {
+        let newObj = { ...obj };
+        e.forEach((subEl) => {
+          newObj = newObj[subEl];
+        });
+        if (!newObj || Object.keys(newObj).length === 0) {
+          response.push(e.join("."));
+        }
+      });
+    return response;
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    let errorFound = checkValidation(detail, required);
+    console.log(errorFound);
+    if (errorFound.length === 0) {
+      axios
+        .post(
+          "http://192.168.1.42:8000/api/v1/testapp/change_password",
+          {},
+          { headers: detail }
+        )
+        .then((res) => setApiRes(res))
+        .catch((err) => setApiRes(err))
+        .finally(() => {
+          setDetail({
+            username: "",
+            newpassword: "",
+            oldpassword: "",
+          });
+        });
+    } else {
+      errorFound.forEach((details) => {
+        console.log(details);
+        if (
+          details !== undefined &&
+          !document
+            .getElementById(`${details}`)
+            ?.className?.includes("error") &&
+          document.getElementById(`${details}`) &&
+          detail !== null
+        ) {
+          document.getElementById(`${details}`)?.classList?.toggle("error");
+        }
+      });
+      console.log(errorFound);
+    }
   }
 
   return (
     <>
       <Navbar />
       <div className="login_page">
-        <div className="validationForm">
+        <form className="validationForm" onSubmit={handleSubmit}>
+          {apiRes === 200 && (
+            <p className="successPop">User Group added successfully!!</p>
+          )}
           <InputBox
             id={"username"}
             title={"User Name"}
             value={detail.username}
             onChange={(e) =>
               setDetail((p) => ({ ...p, username: e.target.value }))
+            }
+          />
+
+          <InputBox
+            id={"oldpassword"}
+            title={"Current Password"}
+            type={"oldpassword"}
+            value={detail.oldpassword}
+            onChange={(e) =>
+              setDetail((p) => ({ ...p, oldpassword: e.target.value }))
             }
           />
           {
@@ -80,10 +154,10 @@ function ChangePassword() {
                 <div className="hideValidate validateBoxShow"></div>
               )}
               <InputBox
-                title={"Password"}
-                id={"password"}
-                type={"password"}
-                value={detail.password}
+                title={"New password"}
+                id={"newpassword"}
+                type={"newpassword"}
+                value={detail.newpassword}
                 // className={errorFound.password ? "error" : ""}
                 onChange={(e) => handlePasswordChange(e)}
                 onFocus={() => {
@@ -103,17 +177,8 @@ function ChangePassword() {
               />
             </div>
           }
-          <InputBox
-            id={"newpassword"}
-            title={"New Password"}
-            type={"password"}
-            value={detail.newpassword}
-            onChange={(e) =>
-              setDetail((p) => ({ ...p, newpassword: e.target.value }))
-            }
-          />
           <button>Change Password</button>
-        </div>
+        </form>
       </div>
     </>
   );

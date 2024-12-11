@@ -1,7 +1,7 @@
 import React from "react";
 
-const Pagination = ({ currPage, setCurrPage, arrLength }) => {
-  let totalPage = Math.ceil(arrLength / 10);
+const Pagination = ({ currPage, setCurrPage, arrLength, dataLimit }) => {
+  let totalPage = Math.ceil(arrLength / dataLimit);
 
   const prevNums = Array.from({ length: 3 }, (_, i) => currPage - 1 - i)
     .filter((e, i) => e > 0)
@@ -14,25 +14,27 @@ const Pagination = ({ currPage, setCurrPage, arrLength }) => {
 
   return (
     <div className="pagination">
-      <img
-        src="src/images/leftArrow.png"
-        alt=""
-        className="leftArrow"
-        onClick={() => {
-          if (currPage <= 1) {
-            // alert("No pages behind!");
-          } else {
-            setCurrPage((p) => p - 1);
-          }
-        }}
-      />
+      {
+        <img
+          src="src/images/leftArrow.png"
+          alt=""
+          className="leftArrow"
+          onClick={() => {
+            if (currPage <= 1) {
+              // alert("No pages behind!");
+            } else {
+              setCurrPage((p) => p - 1);
+            }
+          }}
+        />
+      }
 
       {currPage >= 5 && (
         <>
-          <button className="page-button" onClick={() => setCurrPage(0)}>
+          <button className="page-button" onClick={() => setCurrPage(1)}>
             1
           </button>
-          <button className="page-button" onClick={() => setCurrPage(1)}>
+          <button className="page-button" onClick={() => setCurrPage(2)}>
             2
           </button>
           <p style={{ color: "white" }}>...</p>
@@ -57,7 +59,7 @@ const Pagination = ({ currPage, setCurrPage, arrLength }) => {
           <button
             className="page-button"
             onClick={() =>
-              setCurrPage(totalPage - 1 /* res.pagination.last_visible_page */)
+              setCurrPage(totalPage /* res.pagination.last_visible_page */)
             }
           >
             {totalPage /* res.pagination.last_visible_page */}

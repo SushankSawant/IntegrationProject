@@ -9,14 +9,8 @@ function Navbar() {
 
   return (
     <nav>
+      <h1>CollabProject</h1>
       <ul>
-        <li
-          onClick={() => {
-            navigate("/changepassword");
-          }}
-        >
-          Change Password
-        </li>
         <li
           onClick={() => {
             navigate("/");
@@ -26,10 +20,18 @@ function Navbar() {
         </li>
         <li
           onClick={() => {
-            navigate("/usergroup");
+            navigate("/changepassword");
           }}
         >
-          User Group
+          Change Password
+        </li>
+
+        <li
+          onClick={() => {
+            navigate("/addusergroup");
+          }}
+        >
+          Add Usergroup
         </li>
         <li
           onClick={() => {

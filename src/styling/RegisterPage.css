@@ -184,6 +184,7 @@ h1 {
   transform: translateY(-100%) scale(0);
   pointer-events: none;
   opacity: 0;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.529);
   transition: 0.5s all cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
   input {
