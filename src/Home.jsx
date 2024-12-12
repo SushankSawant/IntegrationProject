@@ -22,22 +22,14 @@ function Home() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("token")).username);
+    setUser(JSON.parse(localStorage.getItem("username")));
   }, []);
   // const { loginStatus } = useAuth();
   return (
     <div>
       <Navbar />
       <div className="homeWrapper">
-        {/* <h1>WELCOME HOME</h1>
-        <button
-          onClick={() => {
-            console.log(loginStatus);
-          }}
-        >
-          checkAuth
-        </button> */}
-        {user !== "superadmin" ? (
+        {user == "superadmin" ? (
           <>
             <div className="box">
               <p

@@ -16,7 +16,7 @@ function LoginPage() {
   let loginStatus;
 
   useEffect(() => {
-    loginStatus = localStorage.getItem("token");
+    loginStatus = localStorage.getItem("access_token");
     if (loginStatus) {
       navigate("/");
     }
@@ -41,7 +41,16 @@ function LoginPage() {
           }
         )
         .then((res) => {
-          localStorage.setItem("token", JSON.stringify(res.data));
+          // localStorage.setItem("token", JSON.stringify(res.data));
+          localStorage.setItem(
+            "access_token",
+            JSON.stringify(res.data.access_token)
+          );
+          localStorage.setItem(
+            "refresh_token",
+            JSON.stringify(res.data.refresh_token)
+          );
+          localStorage.setItem("username", JSON.stringify(res.data.username));
           setApiLoginRes(res);
           loginAuth(res.data);
           setApiLoginErr(null);

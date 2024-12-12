@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     console.log(loginStatus, "IN LOGOUT AUTH"); */
   }
 
-  const isTokenExpired = (token) => {
+  /* const isTokenExpired = (token) => {
     if (!token) return true;
     try {
       return jwtDecode(token).exp < Date.now() / 1000;
@@ -30,10 +30,15 @@ export const AuthProvider = ({ children }) => {
       return true;
     }
   };
-
+ */
   return (
     <AuthContext.Provider
-      value={{ token, loginStatus, loginAuth, logoutAuth, isTokenExpired }}
+      value={{
+        token,
+        loginStatus,
+        loginAuth,
+        logoutAuth /* , isTokenExpired  */,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
+import AxiosInstances from "./AxiosInstances";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -35,25 +36,28 @@ function Navbar() {
         </li>
         <li
           onClick={() => {
-            let token = JSON.parse(localStorage.getItem("token"));
-            console.log(token, "CONSOLED TOKEN");
-            axios
-              .post(
-                "http://192.168.1.42:8000/api/v1/testapp/logout",
-                {},
-                {
-                  headers: {
-                    refresh: token.refresh_token,
-                  },
-                }
-              )
+            let refresh_token = JSON.parse(
+              localStorage.getItem("refresh_token")
+            );
+            // console.log(token, "CONSOLED TOKEN");
+            AxiosInstances.post(
+              "/api/v1/testapp/logout",
+              {},
+              {
+                headers: {
+                  refresh: refresh_token,
+                },
+              }
+            )
               .then((res) => {
                 console.log(res);
               })
               .catch((err) => console.log(err))
               .finally(() => {
                 logoutAuth();
-                localStorage.removeItem("token");
+                localStorage.removeItem("refresh_token");
+                localStorage.removeItem("access_token");
+                localStorage.removeItem("username");
                 navigate("/login");
               });
           }}

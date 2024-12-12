@@ -4,6 +4,7 @@ import axios from "axios";
 import Dropdown from "./DropDown";
 import { useAuth } from "./Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+// import AxiosInstances from "./AxiosInstances";
 
 function UserTable() {
   const [currPage, setCurrPage] = useState(1);
@@ -11,6 +12,9 @@ function UserTable() {
     word: "",
     number: "10",
   });
+  const [selectedUserArr, setSelectedUserArr] = useState({ username: "" });
+  // const [selectedUserArr, setSelectedUserArr] = useState("");
+
   const [userArr, setUserArr] = useState();
   let label = [
     "firstname",
@@ -23,14 +27,14 @@ function UserTable() {
   ];
   useEffect(() => {
     callUserListApi();
-    console.log(currPage);
-  }, [currPage, searchInput.number]);
+    // console.log(currPage);
+  }, [currPage, searchInput.number, selectedUserArr]);
 
   const navigate = useNavigate();
 
   const { isTokenExpired } = useAuth();
-  function callUserListApi() {
-    if (
+  async function callUserListApi() {
+    /*  if (
       isTokenExpired(JSON.parse(localStorage.getItem("token")).refresh_token)
     ) {
       console.log(
@@ -38,23 +42,33 @@ function UserTable() {
       );
       localStorage.removeItem("token");
       navigate("/login");
-    } else {
-      axios
-        .get(
-          `http://192.168.1.42:8000/api/v1/testapp/list_members?page_no=${currPage}&page_size=${searchInput.number}&username=${searchInput.word}`,
-          {
-            headers: {
-              "access-control-allow-origin": "*",
-              "Content-type": "application/json; charset=UTF-8",
-            },
-          }
-        )
-        .then((res) => {
+    } else { */
+    axios
+      .get(
+        `http://192.168.1.42:8000/api/v1/testapp/list_members?page_no=${currPage}&page_size=${searchInput.number}&username=${searchInput.word}`
+      )
+      .then((res) => {
+        if (res?.status === 200) {
           setUserArr(res.data);
-          console.log(res.data);
-        });
-    }
+        }
+      })
+      .catch((err) => console.log(err));
   }
+
+  /* function handleSelected(e) {
+    const { name, checked, value } = e.target;
+    console.log(name, checked, value);
+    let userExists = selectedUserArr.includes(name);
+
+    if (!userExists) {
+      setSelectedUserArr((prev) => [...prev, name]);
+    } else {
+      let filteredArray = selectedUserArr;
+      filteredArray.splice(filteredArray.indexOf(name), 1);
+      setSelectedUserArr([...filteredArray]);
+    }
+  } */
+  // console.log(selectedUserArr);
 
   return (
     <div>
@@ -83,6 +97,20 @@ function UserTable() {
           }}
           reqArr={["10", "20", "30"]}
         />
+        <button
+          onClick={() => {
+            axios
+              .post(
+                "http://192.168.1.42:8000/api/v1/testapp/users_delete",
+                {},
+                { headers: { username: selectedUserArr } }
+              )
+              .then((res) => console.log(res))
+              .catch((err) => console.log(err));
+          }}
+        >
+          Delete
+        </button>
       </div>
       {
         <table>
@@ -91,12 +119,22 @@ function UserTable() {
             {label.map((e, i) => {
               return <th key={`tablehead_${i}`}>{e}</th>;
             })}
+            <th></th>
           </thead>
           <tbody>
             {userArr?.members?.map((userRow, i) => {
               return (
                 <tr key={`tablerow_${i}`}>
                   <td key={`tabledetail_srno_${i}`}>
+                    {
+                      <input
+                        type="checkbox"
+                        // name={userRow["username"]}
+                        // key={userRow["username"]}
+                        // checked={selectedUserArr.includes(userRow["username"])}
+                        // onChange={handleSelected}
+                      />
+                    }
                     {i + (currPage - 1) * searchInput.number + 1}
                   </td>
                   {label.map((userData, i) => {
@@ -104,13 +142,37 @@ function UserTable() {
                       <td key={`tabledetail_${i}`}>{userRow[userData]}</td>
                     );
                   })}
+                  <td
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      // let selectedData = { username: `${userRow["username"]}` };
+                      setSelectedUserArr(userRow["username"]);
+                      console.log(userRow["username"]);
+                      // let curClicked = { username: `${userRow["username"]}` };
+                      axios
+                        .delete(
+                          "http://192.168.1.42:8000/api/v1/testapp/users_delete",
+                          {
+                            headers: {
+                              username: `${userRow["username"]}`,
+                              // "access-control-allow-origin": "*",
+                              // "Content-type": "application/json; charset=UTF-8",
+                            },
+                          }
+                        )
+                        .then((res) => console.log(res))
+                        .catch((err) => console.log(err, "DELETE ERROR"));
+                    }}
+                  >
+                    🗑️
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
       }
-      {userArr?.members.length > 1 && (
+      {userArr?.members?.length > 1 && (
         <Pagination
           currPage={currPage}
           setCurrPage={setCurrPage}

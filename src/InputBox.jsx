@@ -37,10 +37,10 @@ function InputBox({ title = "", type = "text", id, errorFound, ...props }) {
         className={`input__style ${props?.className ?? ""}`}
         onFocus={(e) => {
           document.getElementById(`${id}`).classList.remove("error");
-          props?.onFocus(e);
-          /*  if (id === "password") {
+          // props?.onFocus(e);
+          if (id === "password") {
             props?.onFocus(e);
-          } */
+          }
         }}
         id={id}
       />

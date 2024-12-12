@@ -38,6 +38,7 @@ function RegisterPage() {
     phone_number: "",
     usergroup: "",
     password: "",
+    datetime: "",
   });
 
   const [apiRes, setApiRes] = useState();
@@ -78,11 +79,21 @@ function RegisterPage() {
     console.log(errorFound);
     if (detail.password === confirmPass && errorFound.length === 0) {
       axios
-        .post("http://192.168.1.42:8000/api/v1/testapp/users/", detail)
+        .post("http://192.168.1.42:8000/api/v1/testapp/register", detail)
         .then((res) => console.log(res))
         .catch((err) => setApiRes(err));
       // alert("Successfully Submited !");
       console.log(detail);
+      setDetail({
+        firstname: "",
+        lastname: "",
+        username: "",
+        email: "",
+        phone_number: "",
+        usergroup: "",
+        password: "",
+        datetime: "",
+      });
     } else {
       errorFound.forEach((details) => {
         console.log(details);
@@ -213,6 +224,7 @@ function RegisterPage() {
               )
             ) {
               document.getElementById("email").classList.add("error");
+              er;
             }
           }}
           onChange={(e) => setDetail((p) => ({ ...p, email: e.target.value }))}
@@ -278,6 +290,14 @@ function RegisterPage() {
             setConfirmPass(e.target.value.trim());
           }}
         />
+        <input
+          type="datetime-local"
+          name=""
+          id=""
+          onChange={(e) => {
+            setDetail((p) => ({ ...p, datetime: e.target.value }));
+          }}
+        />
         <Dropdown
           selectedData={detail.usergroup}
           dropTitle={"User Group"}
@@ -289,6 +309,7 @@ function RegisterPage() {
           }}
           reqArr={userGroupArr}
         />
+
         <button>Submit</button>
         <a
           href="/login"

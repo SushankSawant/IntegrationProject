@@ -46,7 +46,7 @@ const Pagination = ({ currPage, setCurrPage, arrLength, dataLimit }) => {
           <button
             key={i}
             className={currPage == e ? "page-button activePage" : "page-button"}
-            onClick={() => setCurrPage(e - 1)}
+            onClick={() => setCurrPage(e)}
           >
             {e}
           </button>
