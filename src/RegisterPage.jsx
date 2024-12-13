@@ -77,7 +77,7 @@ function RegisterPage() {
     e.preventDefault();
     let errorFound = checkValidation(detail, required);
     console.log(errorFound);
-    if (detail.password === confirmPass && errorFound.length === 0) {
+    if (detail.password === confirmPass && errorFound.length === 0 && submit) {
       axios
         .post("http://192.168.1.42:8000/api/v1/testapp/register", detail)
         .then((res) => console.log(res))
@@ -120,6 +120,8 @@ function RegisterPage() {
     "email",
     "password",
   ];
+
+  let submit;
 
   function checkValidation(obj, req) {
     let response = [];
@@ -225,9 +227,15 @@ function RegisterPage() {
             ) {
               document.getElementById("email").classList.add("error");
               er;
+              submit = false;
+            } else {
+              submit = true;
             }
           }}
-          onChange={(e) => setDetail((p) => ({ ...p, email: e.target.value }))}
+          onChange={(e) => {
+            setDetail((p) => ({ ...p, email: e.target.value.toLowerCase() }));
+            // submit = true;
+          }}
         />
         <div className="passwordWrap">
           {passValid?.show ? (
@@ -294,6 +302,7 @@ function RegisterPage() {
           type="datetime-local"
           name=""
           id=""
+          className=""
           onChange={(e) => {
             setDetail((p) => ({ ...p, datetime: e.target.value }));
           }}

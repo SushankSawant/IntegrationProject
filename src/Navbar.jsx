@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
-import AxiosInstances from "./AxiosInstances";
+// import AxiosInstances from "./AxiosInstances";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -36,19 +36,26 @@ function Navbar() {
         </li>
         <li
           onClick={() => {
-            let refresh_token = JSON.parse(
-              localStorage.getItem("refresh_token")
-            );
+            navigate("/updatedata");
+          }}
+        >
+          Update Data
+        </li>
+        <li
+          onClick={() => {
+            let refresh_token =
+              /* JSON.parse */ localStorage.getItem("refresh_token");
             // console.log(token, "CONSOLED TOKEN");
-            AxiosInstances.post(
-              "/api/v1/testapp/logout",
-              {},
-              {
-                headers: {
-                  refresh: refresh_token,
-                },
-              }
-            )
+            axios
+              .post(
+                "http://192.168.1.42:8000/api/v1/testapp/logout",
+                {},
+                {
+                  headers: {
+                    refresh: refresh_token,
+                  },
+                }
+              )
               .then((res) => {
                 console.log(res);
               })

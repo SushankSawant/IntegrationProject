@@ -22,7 +22,7 @@ function Home() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("username")));
+    setUser(localStorage.getItem("username"));
   }, []);
   // const { loginStatus } = useAuth();
   return (

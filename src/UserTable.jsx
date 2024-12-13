@@ -4,7 +4,7 @@ import axios from "axios";
 import Dropdown from "./DropDown";
 import { useAuth } from "./Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-// import AxiosInstances from "./AxiosInstances";
+import AxiosInstances from "./AxiosInstances";
 
 function UserTable() {
   const [currPage, setCurrPage] = useState(1);
@@ -12,7 +12,7 @@ function UserTable() {
     word: "",
     number: "10",
   });
-  const [selectedUserArr, setSelectedUserArr] = useState({ username: "" });
+  // const [selectedUserArr, setSelectedUserArr] = useState({ username: "" });
   // const [selectedUserArr, setSelectedUserArr] = useState("");
 
   const [userArr, setUserArr] = useState();
@@ -28,7 +28,7 @@ function UserTable() {
   useEffect(() => {
     callUserListApi();
     // console.log(currPage);
-  }, [currPage, searchInput.number, selectedUserArr]);
+  }, [currPage, searchInput.number /* selectedUserArr */]);
 
   const navigate = useNavigate();
 
@@ -43,13 +43,13 @@ function UserTable() {
       localStorage.removeItem("token");
       navigate("/login");
     } else { */
-    axios
-      .get(
-        `http://192.168.1.42:8000/api/v1/testapp/list_members?page_no=${currPage}&page_size=${searchInput.number}&username=${searchInput.word}`
-      )
+    AxiosInstances.get(
+      `/api/v1/testapp/list_users?page_no=${currPage}&page_size=${searchInput.number}&username=${searchInput.word}`
+    )
       .then((res) => {
         if (res?.status === 200) {
           setUserArr(res.data);
+          console.log(res);
         }
       })
       .catch((err) => console.log(err));
@@ -97,7 +97,7 @@ function UserTable() {
           }}
           reqArr={["10", "20", "30"]}
         />
-        <button
+        {/*  <button
           onClick={() => {
             axios
               .post(
@@ -110,19 +110,21 @@ function UserTable() {
           }}
         >
           Delete
-        </button>
+        </button> */}
       </div>
       {
         <table>
           <thead>
-            <th>Sr. No.</th>
-            {label.map((e, i) => {
-              return <th key={`tablehead_${i}`}>{e}</th>;
-            })}
-            <th></th>
+            <tr>
+              <th>Sr. No.</th>
+              {label.map((e, i) => {
+                return <th key={`tablehead_${i}`}>{e}</th>;
+              })}
+              <th></th>
+            </tr>
           </thead>
           <tbody>
-            {userArr?.members?.map((userRow, i) => {
+            {userArr?.users?.map((userRow, i) => {
               return (
                 <tr key={`tablerow_${i}`}>
                   <td key={`tabledetail_srno_${i}`}>
@@ -146,22 +148,23 @@ function UserTable() {
                     style={{ cursor: "pointer" }}
                     onClick={() => {
                       // let selectedData = { username: `${userRow["username"]}` };
-                      setSelectedUserArr(userRow["username"]);
+                      // setSelectedUserArr(userRow["username"]);
                       console.log(userRow["username"]);
                       // let curClicked = { username: `${userRow["username"]}` };
-                      axios
-                        .delete(
-                          "http://192.168.1.42:8000/api/v1/testapp/users_delete",
-                          {
-                            headers: {
-                              username: `${userRow["username"]}`,
-                              // "access-control-allow-origin": "*",
-                              // "Content-type": "application/json; charset=UTF-8",
-                            },
-                          }
-                        )
+                      AxiosInstances.delete(
+                        "http://192.168.1.42:8000/api/v1/testapp/users_delete",
+                        {
+                          headers: {
+                            username: `${userRow["username"]}`,
+                            // "access-control-allow-origin": "*",
+                            // "Content-type": "application/json; charset=UTF-8",
+                          },
+                        }
+                      )
                         .then((res) => console.log(res))
                         .catch((err) => console.log(err, "DELETE ERROR"));
+
+                      callUserListApi();
                     }}
                   >
                     🗑️
@@ -172,14 +175,14 @@ function UserTable() {
           </tbody>
         </table>
       }
-      {userArr?.members?.length > 1 && (
-        <Pagination
+      {
+        /* userArr?.users?.length > 1 && */ <Pagination
           currPage={currPage}
           setCurrPage={setCurrPage}
-          arrLength={userArr?.total_members}
+          arrLength={userArr?.total_users}
           dataLimit={searchInput?.number}
         />
-      )}
+      }
     </div>
   );
 }
