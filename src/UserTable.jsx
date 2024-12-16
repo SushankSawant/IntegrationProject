@@ -3,17 +3,20 @@ import Pagination from "./Pagination";
 import axios from "axios";
 import Dropdown from "./DropDown";
 import { useAuth } from "./Context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import AxiosInstances from "./AxiosInstances";
 
-function UserTable() {
-  const [currPage, setCurrPage] = useState(1);
+function UserTable({ role }) {
+  let usergroup = localStorage.getItem("usergroup");
+  const [searchParam, setSearchParam] = useSearchParams();
+  console.log(searchParam.get("pageno"));
+  const [currPage, setCurrPage] = useState(searchParam.get("pageno") || 1);
+
+  console.log(currPage);
   const [searchInput, setSearchInput] = useState({
     word: "",
-    number: "10",
+    number: searchParam.get("dataLength") || "10",
   });
-  // const [selectedUserArr, setSelectedUserArr] = useState({ username: "" });
-  // const [selectedUserArr, setSelectedUserArr] = useState("");
 
   const [userArr, setUserArr] = useState();
   let label = [
@@ -25,26 +28,30 @@ function UserTable() {
     "usergroup",
     "datetime",
   ];
-  useEffect(() => {
-    callUserListApi();
-    // console.log(currPage);
-  }, [currPage, searchInput.number /* selectedUserArr */]);
-
   const navigate = useNavigate();
+  useEffect(() => {
+    let usergroup = localStorage.getItem("usergroup");
+    if (!role.includes(usergroup)) {
+      navigate("/");
+    }
+    callUserListApi();
+    // if (currPage != 1) {
+    setSearchParam((params) => {
+      params.set("pageno", currPage);
+      params.set("dataLength", searchInput.number);
+      return params;
+    });
+    // }
+  }, [currPage, searchInput.number]);
 
-  const { isTokenExpired } = useAuth();
+  // const { isTokenExpired } = useAuth();
   async function callUserListApi() {
-    /*  if (
-      isTokenExpired(JSON.parse(localStorage.getItem("token")).refresh_token)
-    ) {
-      console.log(
-        isTokenExpired(JSON.parse(localStorage.getItem("token")).refresh_token)
-      );
-      localStorage.removeItem("token");
-      navigate("/login");
-    } else { */
     AxiosInstances.get(
-      `/api/v1/testapp/list_users?page_no=${currPage}&page_size=${searchInput.number}&username=${searchInput.word}`
+      `/${
+        usergroup == "superadmin" ? "list_users" : "list_members"
+      }?page_no=${currPage}&page_size=${
+        searchInput.number === "" ? 10 : searchInput.number
+      }&username=${searchInput.word}`
     )
       .then((res) => {
         if (res?.status === 200) {
@@ -89,28 +96,31 @@ function UserTable() {
           selectedData={searchInput?.number}
           dropTitle={"data limit"}
           onchange={(e) => {
-            callUserListApi();
+            // callUserListApi();
             setSearchInput((p) => ({
               ...p,
               number: e,
             }));
+            setCurrPage(1);
           }}
           reqArr={["10", "20", "30"]}
         />
-        {/*  <button
-          onClick={() => {
-            axios
-              .post(
-                "http://192.168.1.42:8000/api/v1/testapp/users_delete",
-                {},
-                { headers: { username: selectedUserArr } }
-              )
-              .then((res) => console.log(res))
-              .catch((err) => console.log(err));
-          }}
-        >
-          Delete
-        </button> */}
+        {
+          <button
+            onClick={() => {
+              axios
+                .post(
+                  "http://192.168.1.42:8000/api/v1/testapp/users_delete",
+                  {},
+                  { headers: { username: selectedUserArr } }
+                )
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err));
+            }}
+          >
+            Delete
+          </button>
+        }
       </div>
       {
         <table>
@@ -124,63 +134,72 @@ function UserTable() {
             </tr>
           </thead>
           <tbody>
-            {userArr?.users?.map((userRow, i) => {
-              return (
-                <tr key={`tablerow_${i}`}>
-                  <td key={`tabledetail_srno_${i}`}>
-                    {
-                      <input
-                        type="checkbox"
-                        // name={userRow["username"]}
-                        // key={userRow["username"]}
-                        // checked={selectedUserArr.includes(userRow["username"])}
-                        // onChange={handleSelected}
-                      />
-                    }
-                    {i + (currPage - 1) * searchInput.number + 1}
-                  </td>
-                  {label.map((userData, i) => {
-                    return (
-                      <td key={`tabledetail_${i}`}>{userRow[userData]}</td>
-                    );
-                  })}
-                  <td
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      // let selectedData = { username: `${userRow["username"]}` };
-                      // setSelectedUserArr(userRow["username"]);
-                      console.log(userRow["username"]);
-                      // let curClicked = { username: `${userRow["username"]}` };
-                      AxiosInstances.delete(
-                        "http://192.168.1.42:8000/api/v1/testapp/users_delete",
-                        {
-                          headers: {
-                            username: `${userRow["username"]}`,
-                            // "access-control-allow-origin": "*",
-                            // "Content-type": "application/json; charset=UTF-8",
-                          },
-                        }
-                      )
-                        .then((res) => console.log(res))
-                        .catch((err) => console.log(err, "DELETE ERROR"));
-
-                      callUserListApi();
-                    }}
-                  >
-                    🗑️
-                  </td>
-                </tr>
-              );
-            })}
+            {userArr?.[usergroup == "superadmin" ? "users" : "members"].map(
+              (userRow, i) => {
+                return (
+                  <tr key={`tablerow_${i}`}>
+                    <td key={`tabledetail_srno_${i}`}>
+                      {
+                        <input
+                          type="checkbox"
+                          // name={userRow["username"]}
+                          // key={userRow["username"]}
+                          // checked={selectedUserArr.includes(userRow["username"])}
+                          // onChange={handleSelected}
+                        />
+                      }
+                      {i + (currPage - 1) * searchInput.number + 1}
+                    </td>
+                    {label.map((userData, i) => {
+                      return (
+                        <td key={`tabledetail_${i}`}>{userRow[userData]}</td>
+                      );
+                    })}
+                    <td
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        // let selectedData = { username: `${userRow["username"]}` };
+                        // setSelectedUserArr(userRow["username"]);
+                        console.log(userRow["username"]);
+                        // let curClicked = { username: `${userRow["username"]}` };
+                        AxiosInstances.delete(
+                          "http://192.168.1.42:8000/api/v1/testapp/users_delete",
+                          {
+                            headers: {
+                              username: `${userRow["username"]}`,
+                              // "access-control-allow-origin": "*",
+                              // "Content-type": "application/json; charset=UTF-8",
+                            },
+                          }
+                        )
+                          .then((res) => {
+                            callUserListApi();
+                            console.log(res);
+                          })
+                          .catch((err) => console.log(err, "DELETE ERROR"));
+                      }}
+                    >
+                      🗑️
+                    </td>
+                  </tr>
+                );
+              }
+            )}
           </tbody>
         </table>
       }
       {
-        /* userArr?.users?.length > 1 && */ <Pagination
-          currPage={currPage}
+        /* userArr?.users?.length > 1 && */
+        <Pagination
+          currPage={/* currPage */ Number(currPage)}
           setCurrPage={setCurrPage}
-          arrLength={userArr?.total_users}
+          arrLength={
+            userArr?.[
+              usergroup == "superadmin" ? "total_users" : "total_members"
+            ]
+          }
           dataLimit={searchInput?.number}
+          setSearchParam={setSearchParam}
         />
       }
     </div>

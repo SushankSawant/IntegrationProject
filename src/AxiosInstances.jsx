@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://192.168.1.42:8000";
+const baseURL = "http://192.168.1.42:8000/api/v1/testapp";
 
 const AxiosInstances = axios.create({
   baseURL,
@@ -46,6 +46,8 @@ AxiosInstances.interceptors.response.use(
           {
             headers: {
               refreshtoken: refresh_token,
+              "access-control-allow-origin": "*",
+              "Content-type": "application/json; charset=UTF-8",
             },
           }
         );
@@ -61,6 +63,7 @@ AxiosInstances.interceptors.response.use(
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         localStorage.removeItem("username");
+        location.reload();
         // localStorage.setItem("expired", true);
         // navigate("/login");
         return Promise.reject(error1);

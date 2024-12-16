@@ -6,28 +6,23 @@ import Dropdown from "./DropDown";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
+import AxiosInstances from "./AxiosInstances";
 
 function RegisterPage() {
   const [userGroupArr, setUserGroupArr] = useState(null);
-  let loginstatus = localStorage.getItem("login");
   const navigate = useNavigate();
 
-  const { loginStatus } = useAuth();
+  // let loginStatus = localStorage.getItem("login");
+  // const { loginStatus } = useAuth();
   useEffect(() => {
-    if (loginStatus === true) {
+    let loginStatus = localStorage.getItem("access_token");
+    if (loginStatus) {
       navigate("/");
     }
-    axios
-      .get("http://192.168.1.42:8000/api/v1/testapp/list_usergroups", {
-        headers: {
-          "access-control-allow-origin": "*",
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setUserGroupArr(res.data.data);
-      });
+    AxiosInstances.get("/list_usergroups").then((res) => {
+      console.log(res);
+      setUserGroupArr(res.data.data);
+    });
   }, []);
 
   const [detail, setDetail] = useState({
@@ -77,7 +72,7 @@ function RegisterPage() {
     e.preventDefault();
     let errorFound = checkValidation(detail, required);
     console.log(errorFound);
-    if (detail.password === confirmPass && errorFound.length === 0 && submit) {
+    if (detail.password === confirmPass && errorFound.length === 0) {
       axios
         .post("http://192.168.1.42:8000/api/v1/testapp/register", detail)
         .then((res) => console.log(res))
@@ -217,7 +212,6 @@ function RegisterPage() {
         <InputBox
           title={"Email"}
           id={"email"}
-          // className={errorFound.email ? "error" : ""}
           value={detail.email}
           onBlur={() => {
             if (

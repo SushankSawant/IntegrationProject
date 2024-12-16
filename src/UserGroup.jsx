@@ -1,22 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import AxiosInstances from "./AxiosInstances";
+import { useNavigate } from "react-router-dom";
 
-function UserGroup() {
+function UserGroup({ role }) {
   const [userGroupArr, setUserGroupArr] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState();
-
+  let navigate = useNavigate();
   useEffect(() => {
-    axios
-      .get("http://192.168.1.42:8000/api/v1/testapp/list_usergroups", {
-        headers: {
-          "access-control-allow-origin": "*",
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setUserGroupArr(res.data.data);
-      });
+    let usergroup = localStorage.getItem("usergroup");
+    if (!role.includes(usergroup)) {
+      navigate("/");
+    }
+    AxiosInstances.get("/list_usergroups").then((res) => {
+      console.log(res);
+      setUserGroupArr(res.data.data);
+    });
   }, []);
 
   return (

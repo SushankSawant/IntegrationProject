@@ -45,6 +45,7 @@ function LoginPage() {
           localStorage.setItem("access_token", res.data.access_token);
           localStorage.setItem("refresh_token", res.data.refresh_token);
           localStorage.setItem("username", res.data.username);
+          localStorage.setItem("usergroup", res.data.usergroup);
           setApiLoginRes(res);
           loginAuth(res.data);
           setApiLoginErr(null);

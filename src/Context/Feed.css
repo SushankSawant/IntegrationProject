@@ -1,0 +1,177 @@
+.search_userList {
+  margin-top: 20px;
+}
+
+/* SKELTON style */
+@keyframes fade {
+  0% {
+    opacity: 50%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+.skeletonCard {
+  width: clamp(235px, 18%, 350px);
+  height: 500px;
+  align-self: normal;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background-color: #696969;
+  overflow: hidden;
+  animation-name: fade;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  /* animation-fill-mode: ; */
+}
+
+.skel-img {
+  width: 100%;
+  height: 80%;
+  background-color: #8f8f8f;
+}
+
+.skel-detail {
+  padding: 10px;
+  display: flex;
+  height: 20%;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.skel-title {
+  width: 80%;
+  border-radius: 10px;
+  background-color: #8f8f8f;
+  height: 30px;
+
+  &&:nth-child(2) {
+    background-color: #ffc2d460;
+  }
+}
+/* SKELTON style */
+
+.cardWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  /* align-items: center; */
+  padding-top: 20px;
+}
+
+.card {
+  width: clamp(200px, 22%, 350px);
+  height: 450px;
+  align-self: normal;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  /* align-items: center; */
+  color: #8f8f8f;
+  text-align: left;
+  /* justify-content: space-around; */
+  background-color: #1f1f1f;
+
+  h3 {
+    color: #00adb5;
+    margin-bottom: 8px;
+  }
+
+  cursor: pointer;
+  &&:hover {
+    .imagesec {
+      .animeImg {
+        transform: scale(1.2);
+        filter: blur(5px);
+      }
+    }
+  }
+}
+
+.ratingsec {
+  img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.imagesec {
+  width: 100%;
+  height: 60%;
+  overflow: hidden;
+  position: relative;
+}
+
+img {
+  object-fit: cover;
+  transition: 0.5s all ease;
+  width: 100%;
+  /* height: 100%; */
+}
+
+.animeImg {
+  height: 100%;
+}
+
+.animeDetail {
+  padding: 10px;
+  display: flex;
+  height: 40%;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  position: relative;
+
+  h3 {
+    font-size: 18px;
+  }
+
+  span {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 13px;
+  }
+
+  p {
+    /* position: absolute; */
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.hoverEle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  background-color: #00acb57a;
+  opacity: 0%;
+  transition: 0.5s all ease;
+  z-index: 5;
+  img {
+    width: 60px;
+  }
+  p {
+    color: #fff;
+    font-weight: bold;
+  }
+}
+
+.hoverEle.showHoverEle {
+  opacity: 100%;
+}

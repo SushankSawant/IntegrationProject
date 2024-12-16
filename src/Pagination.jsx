@@ -1,9 +1,17 @@
 import React from "react";
 
-const Pagination = ({ currPage, setCurrPage, arrLength, dataLimit }) => {
+const Pagination = ({
+  currPage,
+  setCurrPage,
+  arrLength,
+  dataLimit,
+  setSearchParam,
+}) => {
   let totalPage = Math.ceil(arrLength / dataLimit);
+  console.log(arrLength, "ARR LENGTH");
+  console.log(dataLimit, "total length");
 
-  const prevNums = Array.from({ length: 3 }, (_, i) => currPage - 1 - i)
+  const prevNums = Array.from({ length: 2 }, (_, i) => currPage - 1 - i)
     .filter((e, i) => e > 0)
     .reverse();
   const nextNums = Array.from({ length: 5 }, (_, i) => currPage + i).filter(
@@ -24,6 +32,10 @@ const Pagination = ({ currPage, setCurrPage, arrLength, dataLimit }) => {
               // alert("No pages behind!");
             } else {
               setCurrPage((p) => p - 1);
+              setSearchParam((p) => {
+                p.set("pageno", currPage - 1);
+                return p;
+              });
             }
           }}
         />
@@ -67,75 +79,6 @@ const Pagination = ({ currPage, setCurrPage, arrLength, dataLimit }) => {
         </>
       )}
 
-      {/* {currPage >= 5 &&
-        [1, 2].map((e, i) => {
-          return (
-            <button className="page-button" onClick={() => setCurrPage(i + 1)}>
-              {i + 1}
-            </button>
-          );
-        })} */}
-      {/* {currPage >= 5 && <p style={{ color: "white" }}>...</p>}
-      {currPage < 5 &&
-        paginationNumbers
-          .map((pageNumber, i) => (
-            <button
-              className={
-                currPage == i + 1 ? "page-button activePage" : "page-button"
-              }
-              key={i}
-              onClick={() => setCurrPage(i + 1)}
-            >
-              {pageNumber}
-            </button>
-          ))
-          .slice(0, 11)} */}
-      {/*   {currPage >= 5 &&
-        currPage < res.pagination.last_visible_page - 6 &&
-        paginationNumbers
-          .map((pageNumber, i) => (
-            <button
-              className={
-                currPage == i + 1 ? "page-button activePage" : "page-button"
-              }
-              key={i}
-              onClick={() => setCurrPage(i + 1)}
-            >
-              {pageNumber}
-            </button>
-          ))
-          .slice(currPage - 1, currPage + 5)} */}
-
-      {/*  {currPage < res.pagination.last_visible_page - 6 && (
-        <>
-          <p style={{ color: "white" }}>.......</p>
-          <button
-            className="page-button"
-            onClick={() =>
-              setCurrPage(paginationNumbers[paginationNumbers.length - 1])
-            }
-          >
-            {paginationNumbers[paginationNumbers.length - 1]}
-          </button>
-        </>
-      )} */}
-      {/*   {currPage >= res.pagination.last_visible_page - 6 &&
-        paginationNumbers
-          .map((pageNumber, i) => (
-            <button
-              className={
-                currPage == i + 1 ? "page-button activePage" : "page-button"
-              }
-              key={i}
-              onClick={() => setCurrPage(i + 1)}
-            >
-              {pageNumber}
-            </button>
-          ))
-          .slice(
-            res.pagination.last_visible_page - 7,
-            res.pagination.last_visible_page
-          )} */}
       {
         <img
           src="src/images/leftArrow.png"
@@ -143,7 +86,11 @@ const Pagination = ({ currPage, setCurrPage, arrLength, dataLimit }) => {
           className="rightArrow"
           onClick={() => {
             if (currPage < totalPage /* res.pagination.last_visible_page */) {
-              setCurrPage((p) => p + 1);
+              setCurrPage(currPage + 1);
+              setSearchParam((p) => {
+                p.set("pageno", currPage + 1);
+                return p;
+              });
             } else {
               alert("Last Page Reached!");
             }

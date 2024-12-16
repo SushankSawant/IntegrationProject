@@ -21,26 +21,35 @@ function Navbar() {
         </li>
         <li
           onClick={() => {
+            navigate("/feed");
+          }}
+        >
+          Feed
+        </li>
+        <li
+          onClick={() => {
             navigate("/changepassword");
           }}
         >
           Change Password
         </li>
 
-        <li
-          onClick={() => {
-            navigate("/addusergroup");
-          }}
-        >
-          Add Usergroup
-        </li>
-        <li
+        {localStorage.getItem("usergroup") === "superadmin" && (
+          <li
+            onClick={() => {
+              navigate("/addusergroup");
+            }}
+          >
+            Add Usergroup
+          </li>
+        )}
+        {/*  <li
           onClick={() => {
             navigate("/updatedata");
           }}
         >
           Update Data
-        </li>
+        </li> */}
         <li
           onClick={() => {
             let refresh_token =

@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputBox from "./InputBox";
 import Navbar from "./Navbar";
 import axios from "axios";
 import { useAuth } from "./Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-function AddUserGroup() {
+function AddUserGroup({ role }) {
   const [usergroup, setUserGroupArr] = useState({ usergroup: "" });
   const [apiRes, setApiRes] = useState(null);
   /*  const { isTokenExpired } = useAuth(); */
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    let usergroup = localStorage.getItem("usergroup");
+    if (!role.includes(usergroup)) {
+      navigate("/");
+    }
+  }, []);
 
   function addUserGroup(e) {
     e.preventDefault();
