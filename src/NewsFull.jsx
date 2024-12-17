@@ -16,7 +16,7 @@ function NewsFull() {
         width: "100%",
       }}
     >
-      <Navbar />
+      {/* <Navbar /> */}
       <div
         style={{
           display: "flex",

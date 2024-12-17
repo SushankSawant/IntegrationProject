@@ -34,8 +34,12 @@ nav {
     border-radius: 10px;
     cursor: pointer;
     text-transform: uppercase;
+
     &&:hover {
       background-color: #00acb57c;
     }
+  }
+  .active {
+    background-color: #00acb57c;
   }
 }

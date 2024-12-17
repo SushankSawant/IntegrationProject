@@ -1,34 +1,54 @@
 import axios from "axios";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
 // import AxiosInstances from "./AxiosInstances";
 
 function Navbar() {
+  // const [currPage, setCurPage] = useState("home");
   const navigate = useNavigate();
   const { logoutAuth } = useAuth();
+  console.log(useLocation());
+  let currPage = useLocation().pathname;
+  console.log(currPage);
 
   return (
     <nav>
       <h1>CollabProject</h1>
       <ul>
         <li
+          style={{ background: currPage == "/" && "#00acb57c" }}
           onClick={() => {
             navigate("/");
+            // setCurPage("home");
           }}
         >
           Home
         </li>
         <li
+          style={{ background: currPage == "/dashboard" && "#00acb57c" }}
+          onClick={() => {
+            navigate("/dashboard");
+            // setCurPage("dashboard");
+          }}
+        >
+          Dashboard
+        </li>
+
+        <li
+          style={{ background: currPage == "/feed" && "#00acb57c" }}
           onClick={() => {
             navigate("/feed");
+            // setCurPage("feed");
           }}
         >
           Feed
         </li>
         <li
+          style={{ background: currPage == "/changepassword" && "#00acb57c" }}
           onClick={() => {
             navigate("/changepassword");
+            // setCurPage("changepassword");
           }}
         >
           Change Password
@@ -36,20 +56,24 @@ function Navbar() {
 
         {localStorage.getItem("usergroup") === "superadmin" && (
           <li
+            style={{ background: currPage == "/addusergroup" && "#00acb57c" }}
             onClick={() => {
               navigate("/addusergroup");
+              // setCurPage("addusergroup");
             }}
           >
             Add Usergroup
           </li>
         )}
-        {/*  <li
-          onClick={() => {
-            navigate("/updatedata");
-          }}
-        >
-          Update Data
-        </li> */}
+        {localStorage.getItem("usergroup") == "/superadmin" && (
+          <li
+            onClick={() => {
+              navigate("/updatedata");
+            }}
+          >
+            Update Data
+          </li>
+        )}
         <li
           onClick={() => {
             let refresh_token =

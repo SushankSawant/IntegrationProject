@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ChangePassword from "./ChangePassword";
 import Navbar from "./Navbar";
 import "./Navbar.css";
@@ -14,6 +14,7 @@ import UserGroup from "./UserGroup";
 function Home() {
   // const navigate = useNavigate();
   let usergroup = localStorage.getItem("usergroup");
+  console.log(useLocation());
 
   // const [toShow, setToShow] = useState("");
   /*  const toShowObj = {

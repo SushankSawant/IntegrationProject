@@ -42,12 +42,12 @@ function App() {
               }
               <Route element={<Feed />} path="/feed" />
               <Route element={<ChangePassword />} path="/changepassword" />
+              <Route element={<NewsFull />} path="/fullpagenews"></Route>
+              <Route
+                element={<AddUserGroup role={["superadmin"]} />}
+                path="/addusergroup"
+              />
             </Route>
-            <Route element={<NewsFull />} path="/fullpagenews"></Route>
-            <Route
-              element={<AddUserGroup role={["superadmin"]} />}
-              path="/addusergroup"
-            />
           </Route>
         </Routes>
       </BrowserRouter>
