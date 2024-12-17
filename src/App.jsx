@@ -14,6 +14,7 @@ import UpdateData from "./UpdateData";
 import UserTable from "./UserTable";
 import Feed from "./Feed";
 import NewsFull from "./NewsFull";
+import Dashboard from "./Dashboard";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -25,24 +26,24 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route element={<PrivateRoute />}>
-            <Route element={<Feed />} path="/feed" />
-            <Route element={<ChangePassword />} path="/changepassword" />
             <Route element={<Home />} path="/" exact>
-              <Route
-                index
-                element={<UserTable role={["superadmin", "admin"]} />}
-              />
-              <Route
-                element={<UserTable role={["superadmin", "admin"]} />}
-                path="/userlist"
-              />
-
-              <Route
-                element={<UserGroup role={["superadmin"]} />}
-                path="/usergroups"
-              />
+              <Route element={<Feed />} path="/feed" />
+              <Route element={<ChangePassword />} path="/changepassword" />
+              <Route element={<Dashboard />} path="/dashboard">
+                {/* <Route
+                  index
+                  element={<UserTable role={["superadmin", "admin"]} />}
+                /> */}
+                <Route
+                  element={<UserTable role={["superadmin", "admin"]} />}
+                  path="/userlist"
+                />
+                <Route
+                  element={<UserGroup role={["superadmin"]} />}
+                  path="/usergroups"
+                />
+              </Route>
             </Route>
-            {/* <Route element={<UpdateData />} path="/updatedata"></Route> */}
             <Route element={<NewsFull />} path="/fullpagenews"></Route>
             <Route
               element={<AddUserGroup role={["superadmin"]} />}
