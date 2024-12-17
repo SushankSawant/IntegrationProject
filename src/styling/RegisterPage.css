@@ -269,3 +269,12 @@ h1 {
   } */
 }
 /* DROPDOWN */
+
+.time_selector {
+  padding: 10px;
+  width: 100%;
+  font-size: 1.3vw;
+  background-color: #393e46;
+  color: #eeeeee;
+  border-radius: 10px;
+}

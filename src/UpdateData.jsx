@@ -181,10 +181,10 @@ function UpdateData({ role }) {
                     ...prev,
                     phone_number: e.target.value.slice(0, 10),
                   }));
-                  clearTimeout(timer);
+                  /* clearTimeout(timer);
                   timer = setTimeout(() => {
                     checkUnique(e.target.value);
-                  }, 1000);
+                  }, 1000); */
                 }}
                 onKeyDown={(event) => {
                   if (isNaN(event.key) && event.key !== "Backspace") {

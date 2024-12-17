@@ -11,6 +11,7 @@ import AxiosInstances from "./AxiosInstances";
 function RegisterPage() {
   const [userGroupArr, setUserGroupArr] = useState(null);
   const navigate = useNavigate();
+  const [message, setMessage] = useState({ message: "", type: "" });
 
   useEffect(() => {
     let loginStatus = localStorage.getItem("access_token");
@@ -73,21 +74,33 @@ function RegisterPage() {
     if (detail.password === confirmPass && errorFound.length === 0) {
       axios
         .post("http://192.168.1.42:8000/api/v1/testapp/register", detail)
-        .then((res) => console.log(res))
-        .catch((err) => setApiRes(err));
+        .then((res) => {
+          console.log(res);
+          setMessage({
+            message: "User Registeration Successfull!",
+            type: "successPop",
+          });
+          setDetail({
+            firstname: "",
+            lastname: "",
+            username: "",
+            email: "",
+            phone_number: "",
+            usergroup: "",
+            password: "",
+            datetime: "",
+          });
+          setConfirmPass("");
+        })
+        .catch((err) => {
+          setApiRes(err);
+          setMessage({
+            message: "User Registeration Failed !",
+            type: "errorPop",
+          });
+        });
       // alert("Successfully Submited !");
       console.log(detail);
-      setDetail({
-        firstname: "",
-        lastname: "",
-        username: "",
-        email: "",
-        phone_number: "",
-        usergroup: "",
-        password: "",
-        datetime: "",
-      });
-      setConfirmPass("");
     } else {
       errorFound.forEach((details) => {
         console.log(details);
@@ -139,6 +152,9 @@ function RegisterPage() {
   console.log(apiRes);
   return (
     <div className="register_page">
+      {message?.message !== "" && (
+        <p className={message.type}>{message.message}</p>
+      )}
       {/*   <a
         href="/login"
         style={{
@@ -295,7 +311,7 @@ function RegisterPage() {
           type="datetime-local"
           name=""
           id=""
-          className=""
+          className="time_selector"
           value={detail.datetime}
           onChange={(e) => {
             setDetail((p) => ({ ...p, datetime: e.target.value }));
@@ -328,9 +344,6 @@ function RegisterPage() {
         >
           Already have an account ?
         </a>
-        {apiRes?.status === 409 && (
-          <p className="errorPop">USER ALREADY EXISTS !!</p>
-        )}
       </form>
     </div>
   );

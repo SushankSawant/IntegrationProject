@@ -38,6 +38,13 @@ function Navbar() {
         </li> */}
         <li
           onClick={() => {
+            navigate("/adduser");
+          }}
+        >
+          Add User
+        </li>
+        <li
+          onClick={() => {
             navigate("/feed");
           }}
         >

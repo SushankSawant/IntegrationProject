@@ -10,6 +10,8 @@ function LoginPage() {
     username: "",
     password: "",
   });
+  const [message, setMessage] = useState({ message: "", type: "" });
+
   const navigate = useNavigate();
   const { loginAuth } = useAuth();
   // console.log(loginStatus, "AT LOGIN PAGE");
@@ -53,6 +55,10 @@ function LoginPage() {
         })
         .catch((err) => {
           setApiLoginErr(err.status);
+          setMessage({
+            message: "Login Failed !",
+            type: "errorPop",
+          });
         });
       console.log(apiLoginErr?.status);
     }
@@ -60,10 +66,13 @@ function LoginPage() {
 
   return (
     <div className="login_page">
+      {message?.message !== "" && (
+        <p className={message.type}>{message.message}</p>
+      )}
       <form onSubmit={login} className="login_wrapper">
-        {apiLoginErr == 401 && (
+        {/*  {apiLoginErr == 401 && (
           <p className="errorPop">Invalid Username or Password!!</p>
-        )}
+        )} */}
         <h1 className="form_title">Login</h1>
         <InputBox
           title="User Name"

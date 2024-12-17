@@ -20,7 +20,7 @@ function Feed() {
 
   useEffect(() => {
     AxiosInstances.get(
-      `/testappview_data?page_no=${currPage}&page_size=${searchInput.number}&keyword=${searchInput.word}`
+      `/view_data?page_no=${currPage}&page_size=${searchInput.number}&keyword=${searchInput.word}`
     )
       .then((res) => {
         // console.log(res);
@@ -54,7 +54,8 @@ function Feed() {
           onClick={(e) => {
             e.preventDefault();
             AxiosInstances.get(
-              `/testappview_data?page_no=${currPage}&page_size=${searchInput.number}&keyword=${searchInput.word}`
+              // /testappview_data?page_no=1&page_size=8
+              `/view_data?page_no=${currPage}&page_size=${searchInput.number}&keyword=${searchInput.word}`
             )
               .then((res) => {
                 // console.log(res);

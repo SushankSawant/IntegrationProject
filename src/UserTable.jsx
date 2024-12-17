@@ -109,7 +109,7 @@ function UserTable({ role }) {
           }}
           reqArr={["10", "20", "30"]}
         />
-        {
+        {/* 
           <button
             onClick={() => {
               AxiosInstances.post(
@@ -123,7 +123,7 @@ function UserTable({ role }) {
           >
             Delete
           </button>
-        }
+         */}
       </form>
       {
         <table>

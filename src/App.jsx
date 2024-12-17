@@ -21,6 +21,7 @@ import UserTable from "./UserTable";
 import Feed from "./Feed";
 import NewsFull from "./NewsFull";
 import Dashboard from "./Dashboard";
+import AddUser from "./AddUser";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -34,6 +35,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<ChangePassword />} path="/changepassword" />
             <Route element={<Feed />} path="/feed" />
+            <Route element={<AddUser />} path="/adduser" />
             <Route element={<Home />} path="/" exact>
               <Route
                 index
