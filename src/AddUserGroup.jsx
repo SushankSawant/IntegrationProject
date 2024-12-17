@@ -4,11 +4,11 @@ import Navbar from "./Navbar";
 import axios from "axios";
 import { useAuth } from "./Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import AxiosInstances from "./AxiosInstances";
 
 function AddUserGroup({ role }) {
   const [usergroup, setUserGroupArr] = useState({ usergroup: "" });
-  const [apiRes, setApiRes] = useState(null);
-  /*  const { isTokenExpired } = useAuth(); */
+  const [message, setMessage] = useState({ message: "", type: "" });
 
   let navigate = useNavigate();
 
@@ -25,12 +25,21 @@ function AddUserGroup({ role }) {
       isTokenExpired(JSON.parse(localStorage.getItem("token")).access_token),
       "token EXPIRY CHECK"
     ); */
-    axios
-      .post("http://192.168.1.42:8000/api/v1/testapp/usergroups", usergroup)
+    AxiosInstances.post("/usergroups", usergroup)
       .then((res) => {
-        setApiRes(res.status);
+        // setApiRes(res.status);
+        setMessage({
+          message: "Usergroup Successfully Added!",
+          type: "successPop",
+        });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setMessage({
+          message: "Failed to Add Usergroup!",
+          type: "errorPop",
+        });
+      });
     setUserGroupArr((p) => ({ ...p, usergroup: "" }));
   }
 
@@ -38,10 +47,13 @@ function AddUserGroup({ role }) {
     <>
       <Navbar />
       <div className="login_page">
+        {message?.message !== "" && (
+          <p className={message.type}>{message.message}</p>
+        )}
         <form onSubmit={addUserGroup} className="login_wrapper">
-          {apiRes === 200 && (
+          {/*  {apiRes === 200 && (
             <p className="successPop">User Group added successfully!!</p>
-          )}
+          )} */}
           <InputBox
             title="User Group"
             id={"usergroup"}

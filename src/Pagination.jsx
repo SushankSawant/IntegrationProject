@@ -8,8 +8,8 @@ const Pagination = ({
   setSearchParam,
 }) => {
   let totalPage = Math.ceil(arrLength / dataLimit);
-  console.log(arrLength, "ARR LENGTH");
-  console.log(dataLimit, "total length");
+  // console.log(arrLength, "ARR LENGTH");
+  // console.log(dataLimit, "total length");
 
   const prevNums = Array.from({ length: 2 }, (_, i) => currPage - 1 - i)
     .filter((e, i) => e > 0)
@@ -65,7 +65,7 @@ const Pagination = ({
         );
       })}
 
-      {currPage < totalPage - 6 && (
+      {currPage < totalPage - 4 && (
         <>
           <p style={{ color: "white" }}>.......</p>
           <button

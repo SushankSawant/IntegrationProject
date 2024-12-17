@@ -12,8 +12,6 @@ function RegisterPage() {
   const [userGroupArr, setUserGroupArr] = useState(null);
   const navigate = useNavigate();
 
-  // let loginStatus = localStorage.getItem("login");
-  // const { loginStatus } = useAuth();
   useEffect(() => {
     let loginStatus = localStorage.getItem("access_token");
     if (loginStatus) {
@@ -89,6 +87,7 @@ function RegisterPage() {
         password: "",
         datetime: "",
       });
+      setConfirmPass("");
     } else {
       errorFound.forEach((details) => {
         console.log(details);
@@ -117,6 +116,7 @@ function RegisterPage() {
   ];
 
   let submit;
+  console.log(submit, "submit");
 
   function checkValidation(obj, req) {
     let response = [];
@@ -220,10 +220,9 @@ function RegisterPage() {
               )
             ) {
               document.getElementById("email").classList.add("error");
-              er;
-              submit = false;
+              // submit = false;
             } else {
-              submit = true;
+              // submit = true;
             }
           }}
           onChange={(e) => {
@@ -297,6 +296,7 @@ function RegisterPage() {
           name=""
           id=""
           className=""
+          value={detail.datetime}
           onChange={(e) => {
             setDetail((p) => ({ ...p, datetime: e.target.value }));
           }}

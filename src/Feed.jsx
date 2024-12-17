@@ -19,12 +19,11 @@ function Feed() {
   });
 
   useEffect(() => {
-    axios
-      .get(
-        `http://192.168.1.42:8000/api/v1/testappview_data?page_no=${currPage}&page_size=${searchInput.number}&keyword=${searchInput.word}`
-      )
+    AxiosInstances.get(
+      `/testappview_data?page_no=${currPage}&page_size=${searchInput.number}&keyword=${searchInput.word}`
+    )
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setFeedArray(res.data);
       })
       .catch((err) => console.log(err));
@@ -36,14 +35,14 @@ function Feed() {
       return params;
     });
   }, [currPage, searchInput.number]);
-  console.log(feedArray);
+  // console.log(feedArray);
   return (
     <div>
       <Navbar />
-      <div className="search_userList">
+      <form className="search_userList">
         <input
           type="text"
-          placeholder="Search by username/email"
+          placeholder="Enter Search Input..."
           onChange={(e) => {
             setSearchInput((p) => ({
               ...p,
@@ -52,13 +51,13 @@ function Feed() {
           }}
         />
         <button
-          onClick={() => {
-            axios
-              .get(
-                `http://192.168.1.42:8000/api/v1/testappview_data?page_no=${currPage}&page_size=${searchInput.number}&keyword=${searchInput.word}`
-              )
+          onClick={(e) => {
+            e.preventDefault();
+            AxiosInstances.get(
+              `/testappview_data?page_no=${currPage}&page_size=${searchInput.number}&keyword=${searchInput.word}`
+            )
               .then((res) => {
-                console.log(res);
+                // console.log(res);
                 setFeedArray(res.data);
               })
               .catch((err) => console.log(err));
@@ -78,11 +77,12 @@ function Feed() {
           }}
           reqArr={["8", "12", "16"]}
         />
-      </div>
+      </form>
       <div className="cardWrapper">
-        {feedArray?.results?.map((e) => {
+        {feedArray?.results?.map((e, i) => {
           return (
             <Card
+              key={`newscard_${i}`}
               imgsrc={e.multimedia?.[0].url}
               title={e.title}
               author={e.byline}
@@ -91,7 +91,7 @@ function Feed() {
             />
           );
         })}
-        {feedArray?.results?.length > 1 && (
+        {Math.ceil(feedArray?.total_results / feedArray?.page_size) > 1 && (
           <Pagination
             currPage={/* currPage */ Number(currPage)}
             setCurrPage={setCurrPage}

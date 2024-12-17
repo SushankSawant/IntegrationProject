@@ -4,22 +4,26 @@ import InputBox from "./InputBox";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "./DropDown";
 import AxiosInstances from "./AxiosInstances";
+import axios from "axios";
 
-function UpdateData() {
-  // const [username, setUsername] = useState("");
-  // console.log(username);
+function UpdateData({ role }) {
+  useEffect(() => {
+    let usergroup = localStorage.getItem("usergroup");
+    if (!role.includes(usergroup)) {
+      navigate("/");
+    }
+  }, []);
+  // const [curUsername, setCurUsername] = useState("");
+  const [message, setMessage] = useState({ message: "", type: "" });
   const [userGroupArr, setUserGroupArr] = useState(null);
   const navigate = useNavigate();
 
   const [detail, setDetail] = useState({
+    username: "",
     firstname: "",
     lastname: "",
-    username: "",
-    email: "",
-    phone_number: "",
+    // phone_number: "",
     usergroup: "",
-    password: "",
-    datetime: "",
   });
 
   useEffect(() => {
@@ -27,11 +31,6 @@ function UpdateData() {
       console.log(res);
       setUserGroupArr(res.data.data);
     });
-    setDetail((p) => ({
-      ...p,
-      username:
-        localStorage.getItem("username") && localStorage.getItem("username"),
-    }));
   }, []);
 
   const [apiRes, setApiRes] = useState();
@@ -70,22 +69,31 @@ function UpdateData() {
     e.preventDefault();
     let errorFound = checkValidation(detail, required);
     console.log(errorFound);
-    if (detail.password === confirmPass && errorFound.length === 0 && submit) {
-      axios
-        .post("http://192.168.1.42:8000/api/v1/testapp/register", detail)
-        .then((res) => console.log(res))
-        .catch((err) => setApiRes(err));
-      // alert("Successfully Submited !");
+    console.log("CLICKED");
+    if (errorFound.length === 0) {
+      AxiosInstances.put("/update_user", detail)
+        .then((res) => {
+          console.log(res);
+          setMessage({
+            message: "Data Successfully Updated!",
+            type: "successPop",
+          });
+        })
+        .catch((err) => {
+          setApiRes(err);
+          console.log(err);
+          setMessage({
+            message: "Detail Updating Failed !",
+            type: "errorPop",
+          });
+        });
       console.log(detail);
       setDetail({
         firstname: "",
         lastname: "",
         username: "",
-        email: "",
-        phone_number: "",
+        // phone_number: "",
         usergroup: "",
-        password: "",
-        datetime: "",
       });
     } else {
       errorFound.forEach((details) => {
@@ -105,14 +113,7 @@ function UpdateData() {
     }
   }
 
-  let required = [
-    "firstname",
-    "lastname",
-    "username",
-    "phone_number",
-    "email",
-    "password",
-  ];
+  let required = ["firstname", "lastname", /* "phone_number", */ "username"];
 
   let submit;
 
@@ -137,209 +138,78 @@ function UpdateData() {
   return (
     <>
       <Navbar />
-      <div className="register_page">
-        {/*   <form className="login_wrapper">
-          {apiRes === 200 && (
-            <p className="successPop">User Group added successfully!!</p>
-          )}
-          <InputBox
-            title="Username"
-            id={"username"}
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-            onChange={(e) => {
-              setUserGroupArr((p) => ({ ...p, usergroup: e.target.value }));
-              console.log(e.target.value);
-            }}
-          />
-          <button>Add</button>
-        </form> */}
-        <form className="validationForm" onSubmit={handleSubmit}>
-          <h1 className="form_title">Register</h1>
-          <InputBox
-            id={"firstname"}
-            title={"First Name"}
-            value={detail.firstname}
-            onChange={(e) =>
-              setDetail((p) => ({ ...p, firstname: e.target.value }))
-            }
-          />
-          <InputBox
-            id={"lastname"}
-            title={"Last Name"}
-            value={detail.lastname}
-            onChange={(e) =>
-              setDetail((p) => ({ ...p, lastname: e.target.value }))
-            }
-          />
-          <InputBox
-            title={"Username"}
-            id={"username"}
-            value={detail.username}
-            // pointerEvents={"none"}
-            disabled={true}
-            onChange={(e) =>
-              setDetail((p) => ({
-                ...p,
-                username: e.target.value.trim().toLowerCase(),
-              }))
-            }
-          />
-
-          <InputBox
-            title={"Phone"}
-            id={"phone_number"}
-            value={detail.phone_number}
-            onBlur={() => {
-              /* if (!apiValidation) {
-              document.getElementById("phone").classList.add("error");
-            } */
-            }}
-            onChange={(e) => {
-              setDetail((prev) => ({
-                ...prev,
-                phone_number: e.target.value.slice(0, 10),
-              }));
-              clearTimeout(timer);
-              timer = setTimeout(() => {
-                checkUnique(e.target.value);
-              }, 1000);
-            }}
-            onKeyDown={(event) => {
-              if (isNaN(event.key) && event.key !== "Backspace") {
-                event.preventDefault();
-              }
-            }}
-          />
-          <InputBox
-            title={"Email"}
-            id={"email"}
-            // className={errorFound.email ? "error" : ""}
-            value={detail.email}
-            onBlur={() => {
-              if (
-                !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
-                  detail.email
-                )
-              ) {
-                document.getElementById("email").classList.add("error");
-                er;
-                submit = false;
-              } else {
-                submit = true;
-              }
-            }}
-            onChange={(e) => {
-              setDetail((p) => ({
-                ...p,
-                email: e.target.value.toLowerCase(),
-              }));
-              // submit = true;
-            }}
-          />
-          <div className="passwordWrap">
-            {passValid?.show ? (
-              <div
-                className={
-                  passValid.show
-                    ? "validateBoxShow"
-                    : "hideValidate validateBoxShow"
-                }
-              >
-                <ul>
-                  <li className={passValid.length ? "valid" : "invalid"}>
-                    Minimum 8 charecters.
-                  </li>
-                  <li className={passValid.number ? "valid" : "invalid"}>
-                    Minimum 1 Number
-                  </li>
-                  <li className={passValid.special ? "valid" : "invalid"}>
-                    Minimum 1 Special charecter
-                  </li>
-                  <li className={passValid.upper ? "valid" : "invalid"}>
-                    Minimum 2 Uppercase charecter
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <div className="hideValidate validateBoxShow"></div>
-            )}
+      <div className="login_page">
+        {
+          <form className="validationForm" onSubmit={handleSubmit}>
+            <h1 className="form_title">Update Details</h1>
             <InputBox
-              title={"Password"}
-              id={"password"}
-              type={"password"}
-              value={detail.password}
-              // className={errorFound.password ? "error" : ""}
-              onChange={(e) => handlePasswordChange(e)}
-              onFocus={() => {
-                // console.log("object");
-                setPassValid((prev) => ({
-                  ...prev,
-                  show: true,
-                }));
-              }}
-              autoComplete={"new-password"}
-              onBlur={() => {
-                setPassValid((prev) => ({
-                  ...prev,
-                  show: false,
-                }));
-              }}
+              id={"firstname"}
+              title={"First Name"}
+              value={detail.firstname}
+              onChange={(e) =>
+                setDetail((p) => ({ ...p, firstname: e.target.value }))
+              }
             />
-          </div>
-          <InputBox
-            title={"Confirm Password"}
-            type="password"
-            // autoComplete={"new-password"}
-            className={detail.password !== confirmPass ? "error" : ""}
-            id={"confirmPassword"}
-            value={confirmPass}
-            onChange={(e) => {
-              setConfirmPass(e.target.value.trim());
-            }}
-          />
-          <input
-            type="datetime-local"
-            name=""
-            id=""
-            className=""
-            onChange={(e) => {
-              setDetail((p) => ({ ...p, datetime: e.target.value }));
-            }}
-          />
-          <Dropdown
-            selectedData={detail.usergroup}
-            dropTitle={"User Group"}
-            onchange={(e) => {
-              setDetail((p) => ({
-                ...p,
-                usergroup: e,
-              }));
-            }}
-            reqArr={userGroupArr}
-          />
+            <InputBox
+              id={"lastname"}
+              title={"Last Name"}
+              value={detail.lastname}
+              onChange={(e) =>
+                setDetail((p) => ({ ...p, lastname: e.target.value }))
+              }
+            />
+            <InputBox
+              title={"Username"}
+              id={"username"}
+              value={detail.username}
+              onChange={(e) =>
+                setDetail((p) => ({
+                  ...p,
+                  username: e.target.value.trim().toLowerCase(),
+                }))
+              }
+            />
+            {/* <InputBox
+              title={"Phone Number"}
+              id={"phone_number"}
+              value={detail.phone_number}
+              onBlur={() => {}}
+              onChange={(e) => {
+                setDetail((prev) => ({
+                  ...prev,
+                  phone_number: e.target.value.slice(0, 10),
+                }));
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                  checkUnique(e.target.value);
+                }, 1000);
+              }}
+              onKeyDown={(event) => {
+                if (isNaN(event.key) && event.key !== "Backspace") {
+                  event.preventDefault();
+                }
+              }}
+            /> */}
+            {
+              <Dropdown
+                selectedData={detail.usergroup}
+                dropTitle={"User Group"}
+                onchange={(e) => {
+                  setDetail((p) => ({
+                    ...p,
+                    usergroup: e,
+                  }));
+                }}
+                reqArr={userGroupArr}
+              />
+            }
 
-          <button>Submit</button>
-          <a
-            href="/login"
-            style={{
-              /*  position: "fixed",
-            top: "10px",
-            left: "10px", */
-              fontSize: "14px",
-              // textDecoration: "none",
-              fontWeight: "bold",
-              // color: "black",
-            }}
-          >
-            Already have an account ?
-          </a>
-          {apiRes?.status === 409 && (
-            <p className="errorPop">USER ALREADY EXISTS !!</p>
-          )}
-        </form>
+            <button>Submit</button>
+          </form>
+        }
+        {message?.message !== "" && (
+          <p className={message.type}>{message.message}</p>
+        )}
       </div>
     </>
   );

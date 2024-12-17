@@ -43,7 +43,7 @@ function Card({
       <div className="imagesec">
         <div className={hover ? "hoverEle showHoverEle" : "hoverEle"}>
           <img src="src\images\fullscreen.png" alt="" />
-          <p>Watch This</p>
+          <p>Read This</p>
         </div>
         <img src={imgsrc} alt="" className="animeImg" />
       </div>

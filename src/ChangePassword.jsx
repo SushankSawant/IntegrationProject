@@ -123,14 +123,14 @@ function ChangePassword() {
     <>
       <Navbar />
       <div className="login_page">
-        <form className="validationForm" onSubmit={handleSubmit}>
-          {/* {apiRes === 200 && (
+        {/* {apiRes === 200 && (
             <p className="successPop">Password Changed Successfully!!</p>
           )}
           {apiRes === 401 && <p className="errorPop">Password Change Fail!!</p>} */}
-          {message?.message !== "" && (
-            <p className={message.type}>{message.message}</p>
-          )}
+        {message?.message !== "" && (
+          <p className={message.type}>{message.message}</p>
+        )}
+        <form className="validationForm" onSubmit={handleSubmit}>
           <InputBox
             id={"username"}
             title={"User Name"}

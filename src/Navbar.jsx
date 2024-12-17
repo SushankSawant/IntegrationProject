@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
 // import AxiosInstances from "./AxiosInstances";
@@ -8,9 +8,19 @@ function Navbar() {
   const navigate = useNavigate();
   const { logoutAuth } = useAuth();
 
+  useEffect(() => {
+    console.log("MOUNTED NAV");
+  }, []);
+
   return (
     <nav>
-      <h1>CollabProject</h1>
+      <h1
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Collab-Project
+      </h1>
       <ul>
         <li
           onClick={() => {
@@ -18,6 +28,13 @@ function Navbar() {
           }}
         >
           Home
+        </li>
+        <li
+          onClick={() => {
+            navigate("/dashboard");
+          }}
+        >
+          Dashboard
         </li>
         <li
           onClick={() => {
@@ -43,13 +60,15 @@ function Navbar() {
             Add Usergroup
           </li>
         )}
-        {/*  <li
-          onClick={() => {
-            navigate("/updatedata");
-          }}
-        >
-          Update Data
-        </li> */}
+        {localStorage.getItem("usergroup") === "superadmin" && (
+          <li
+            onClick={() => {
+              navigate("/updatedata");
+            }}
+          >
+            Update Data
+          </li>
+        )}
         <li
           onClick={() => {
             let refresh_token =
@@ -74,6 +93,7 @@ function Navbar() {
                 localStorage.removeItem("refresh_token");
                 localStorage.removeItem("access_token");
                 localStorage.removeItem("username");
+                localStorage.removeItem("usergroup");
                 navigate("/login");
               });
           }}

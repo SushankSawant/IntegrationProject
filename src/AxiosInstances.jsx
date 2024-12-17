@@ -18,7 +18,6 @@ AxiosInstances.interceptors.request.use(
 
       req.headers["Authorization"] = `Bearer ${access_token}`;
     }
-    console.log(req, "requestInterceptor");
 
     return req;
   },
