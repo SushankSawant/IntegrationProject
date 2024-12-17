@@ -89,10 +89,10 @@ function UpdateData({ role }) {
         });
       console.log(detail);
       setDetail({
+        username: "",
         firstname: "",
         lastname: "",
-        username: "",
-        // phone_number: "",
+        phone_number: "",
         usergroup: "",
       });
     } else {
@@ -113,7 +113,7 @@ function UpdateData({ role }) {
     }
   }
 
-  let required = ["firstname", "lastname", /* "phone_number", */ "username"];
+  let required = ["firstname", "lastname", "phone_number", "username"];
 
   let submit;
 
@@ -143,6 +143,17 @@ function UpdateData({ role }) {
           <form className="validationForm" onSubmit={handleSubmit}>
             <h1 className="form_title">Update Details</h1>
             <InputBox
+              title={"Username"}
+              id={"username"}
+              value={detail.username}
+              onChange={(e) =>
+                setDetail((p) => ({
+                  ...p,
+                  username: e.target.value.trim().toLowerCase(),
+                }))
+              }
+            />
+            <InputBox
               id={"firstname"}
               title={"First Name"}
               value={detail.firstname}
@@ -158,38 +169,30 @@ function UpdateData({ role }) {
                 setDetail((p) => ({ ...p, lastname: e.target.value }))
               }
             />
-            <InputBox
-              title={"Username"}
-              id={"username"}
-              value={detail.username}
-              onChange={(e) =>
-                setDetail((p) => ({
-                  ...p,
-                  username: e.target.value.trim().toLowerCase(),
-                }))
-              }
-            />
-            {/* <InputBox
-              title={"Phone Number"}
-              id={"phone_number"}
-              value={detail.phone_number}
-              onBlur={() => {}}
-              onChange={(e) => {
-                setDetail((prev) => ({
-                  ...prev,
-                  phone_number: e.target.value.slice(0, 10),
-                }));
-                clearTimeout(timer);
-                timer = setTimeout(() => {
-                  checkUnique(e.target.value);
-                }, 1000);
-              }}
-              onKeyDown={(event) => {
-                if (isNaN(event.key) && event.key !== "Backspace") {
-                  event.preventDefault();
-                }
-              }}
-            /> */}
+
+            {
+              <InputBox
+                title={"Phone Number"}
+                id={"phone_number"}
+                value={detail.phone_number}
+                onBlur={() => {}}
+                onChange={(e) => {
+                  setDetail((prev) => ({
+                    ...prev,
+                    phone_number: e.target.value.slice(0, 10),
+                  }));
+                  clearTimeout(timer);
+                  timer = setTimeout(() => {
+                    checkUnique(e.target.value);
+                  }, 1000);
+                }}
+                onKeyDown={(event) => {
+                  if (isNaN(event.key) && event.key !== "Backspace") {
+                    event.preventDefault();
+                  }
+                }}
+              />
+            }
             {
               <Dropdown
                 selectedData={detail.usergroup}
