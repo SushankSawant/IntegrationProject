@@ -3,7 +3,13 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import LoginPage from "./LoginPage";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import RegisterPage from "./RegisterPage";
 import Home from "./Home";
 import PrivateRoute from "./PrivateRoute";

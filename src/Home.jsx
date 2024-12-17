@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ChangePassword from "./ChangePassword";
 import Navbar from "./Navbar";
 import "./Navbar.css";

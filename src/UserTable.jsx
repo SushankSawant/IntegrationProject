@@ -3,12 +3,14 @@ import Pagination from "./Pagination";
 import axios from "axios";
 import Dropdown from "./DropDown";
 import { useAuth } from "./Context/AuthContext";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import AxiosInstances from "./AxiosInstances";
 
 function UserTable({ role }) {
   let usergroup = localStorage.getItem("usergroup");
   const [searchParam, setSearchParam] = useSearchParams();
+  console.log(useLocation());
+
   const [currPage, setCurrPage] = useState(searchParam.get("pageno") || 1);
 
   const [searchInput, setSearchInput] = useState({
@@ -175,7 +177,7 @@ function UserTable({ role }) {
                           .catch((err) => console.log(err, "DELETE ERROR"));
                       }}
                     >
-                      🗑️
+                      ❌
                     </td>
                   </tr>
                 );
