@@ -38,8 +38,7 @@ function Feed() {
   }, [currPage, searchInput.number]);
   console.log(feedArray);
   return (
-    <div>
-      <Navbar />
+    <>
       <div className="search_userList">
         <input
           type="text"
@@ -102,7 +101,7 @@ function Feed() {
           />
         )}
       </div>
-    </div>
+    </>
   );
 }
 

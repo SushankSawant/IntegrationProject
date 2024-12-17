@@ -35,26 +35,23 @@ function AddUserGroup({ role }) {
   }
 
   return (
-    <>
-      <Navbar />
-      <div className="login_page">
-        <form onSubmit={addUserGroup} className="login_wrapper">
-          {apiRes === 200 && (
-            <p className="successPop">User Group added successfully!!</p>
-          )}
-          <InputBox
-            title="User Group"
-            id={"usergroup"}
-            value={usergroup.usergroup}
-            onChange={(e) => {
-              setUserGroupArr((p) => ({ ...p, usergroup: e.target.value }));
-              console.log(e.target.value);
-            }}
-          />
-          <button>Add</button>
-        </form>
-      </div>
-    </>
+    <div className="login_page">
+      <form onSubmit={addUserGroup} className="login_wrapper">
+        {apiRes === 200 && (
+          <p className="successPop">User Group added successfully!!</p>
+        )}
+        <InputBox
+          title="User Group"
+          id={"usergroup"}
+          value={usergroup.usergroup}
+          onChange={(e) => {
+            setUserGroupArr((p) => ({ ...p, usergroup: e.target.value }));
+            console.log(e.target.value);
+          }}
+        />
+        <button>Add</button>
+      </form>
+    </div>
   );
 }
 

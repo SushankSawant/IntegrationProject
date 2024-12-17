@@ -78,7 +78,7 @@ function UserTable({ role }) {
   // console.log(selectedUserArr);
 
   return (
-    <div>
+    <>
       <div className="search_userList">
         <input
           type="text"
@@ -202,7 +202,7 @@ function UserTable({ role }) {
           setSearchParam={setSearchParam}
         />
       }
-    </div>
+    </>
   );
 }
 

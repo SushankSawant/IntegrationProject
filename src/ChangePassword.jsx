@@ -120,90 +120,87 @@ function ChangePassword() {
   }
 
   return (
-    <>
-      <Navbar />
-      <div className="login_page">
-        <form className="validationForm" onSubmit={handleSubmit}>
-          {/* {apiRes === 200 && (
+    <div className="login_page">
+      <form className="validationForm" onSubmit={handleSubmit}>
+        {/* {apiRes === 200 && (
             <p className="successPop">Password Changed Successfully!!</p>
           )}
           {apiRes === 401 && <p className="errorPop">Password Change Fail!!</p>} */}
-          {message?.message !== "" && (
-            <p className={message.type}>{message.message}</p>
+        {message?.message !== "" && (
+          <p className={message.type}>{message.message}</p>
+        )}
+        <InputBox
+          id={"username"}
+          title={"User Name"}
+          value={detail.username}
+          onChange={(e) => {
+            setDetail((p) => ({ ...p, username: e.target.value }));
+          }}
+        />
+
+        <InputBox
+          id={"oldpassword"}
+          title={"Current Password"}
+          type={"password"}
+          value={detail.oldpassword}
+          onChange={(e) =>
+            setDetail((p) => ({ ...p, oldpassword: e.target.value }))
+          }
+        />
+
+        <div className="passwordWrap">
+          {passValid?.show ? (
+            <div
+              className={
+                passValid.show
+                  ? "validateBoxShow"
+                  : "hideValidate validateBoxShow"
+              }
+            >
+              <ul>
+                <li className={passValid.length ? "valid" : "invalid"}>
+                  Minimum 8 charecters.
+                </li>
+                <li className={passValid.number ? "valid" : "invalid"}>
+                  Minimum 1 Number
+                </li>
+                <li className={passValid.special ? "valid" : "invalid"}>
+                  Minimum 1 Special charecter
+                </li>
+                <li className={passValid.upper ? "valid" : "invalid"}>
+                  Minimum 2 Uppercase charecter
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <div className="hideValidate validateBoxShow"></div>
           )}
           <InputBox
-            id={"username"}
-            title={"User Name"}
-            value={detail.username}
-            onChange={(e) => {
-              setDetail((p) => ({ ...p, username: e.target.value }));
+            title={"New Password"}
+            id={"password"}
+            type={"password"}
+            value={detail.newpassword}
+            // className={errorFound.password ? "error" : ""}
+            onChange={(e) => handlePasswordChange(e)}
+            onFocus={() => {
+              // console.log("object");
+              setPassValid((prev) => ({
+                ...prev,
+                show: true,
+              }));
+            }}
+            autoComplete={"new-password"}
+            onBlur={() => {
+              setPassValid((prev) => ({
+                ...prev,
+                show: false,
+              }));
             }}
           />
-
-          <InputBox
-            id={"oldpassword"}
-            title={"Current Password"}
-            type={"password"}
-            value={detail.oldpassword}
-            onChange={(e) =>
-              setDetail((p) => ({ ...p, oldpassword: e.target.value }))
-            }
-          />
-
-          <div className="passwordWrap">
-            {passValid?.show ? (
-              <div
-                className={
-                  passValid.show
-                    ? "validateBoxShow"
-                    : "hideValidate validateBoxShow"
-                }
-              >
-                <ul>
-                  <li className={passValid.length ? "valid" : "invalid"}>
-                    Minimum 8 charecters.
-                  </li>
-                  <li className={passValid.number ? "valid" : "invalid"}>
-                    Minimum 1 Number
-                  </li>
-                  <li className={passValid.special ? "valid" : "invalid"}>
-                    Minimum 1 Special charecter
-                  </li>
-                  <li className={passValid.upper ? "valid" : "invalid"}>
-                    Minimum 2 Uppercase charecter
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <div className="hideValidate validateBoxShow"></div>
-            )}
-            <InputBox
-              title={"New Password"}
-              id={"password"}
-              type={"password"}
-              value={detail.newpassword}
-              // className={errorFound.password ? "error" : ""}
-              onChange={(e) => handlePasswordChange(e)}
-              onFocus={() => {
-                // console.log("object");
-                setPassValid((prev) => ({
-                  ...prev,
-                  show: true,
-                }));
-              }}
-              autoComplete={"new-password"}
-              onBlur={() => {
-                setPassValid((prev) => ({
-                  ...prev,
-                  show: false,
-                }));
-              }}
-            />
-          </div>
-          <button>Change Password</button>
-        </form>
-      </div>
-    </>
+        </div>
+        <button>Change Password</button>
+      </form>
+    </div>
   );
 }
 
