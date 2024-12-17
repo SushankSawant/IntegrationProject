@@ -27,22 +27,21 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route element={<PrivateRoute />}>
             <Route element={<Home />} path="/" exact>
+              {/* <Route element={<Dashboard />} path="/dashboard" /> */}
+              {
+                <Route element={<Dashboard />} path="/dashboard">
+                  <Route
+                    element={<UserTable role={["superadmin", "admin"]} />}
+                    path="userlist"
+                  />
+                  <Route
+                    element={<UserGroup role={["superadmin"]} />}
+                    path="usergroups"
+                  />
+                </Route>
+              }
               <Route element={<Feed />} path="/feed" />
               <Route element={<ChangePassword />} path="/changepassword" />
-              <Route element={<Dashboard />} path="/dashboard">
-                {/* <Route
-                  index
-                  element={<UserTable role={["superadmin", "admin"]} />}
-                /> */}
-                <Route
-                  element={<UserTable role={["superadmin", "admin"]} />}
-                  path="/userlist"
-                />
-                <Route
-                  element={<UserGroup role={["superadmin"]} />}
-                  path="/usergroups"
-                />
-              </Route>
             </Route>
             <Route element={<NewsFull />} path="/fullpagenews"></Route>
             <Route

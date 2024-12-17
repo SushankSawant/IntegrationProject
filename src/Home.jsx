@@ -25,46 +25,11 @@ function Home() {
   useEffect(() => {
     setUser(localStorage.getItem("username"));
   }, []);
-  // const { loginStatus } = useAuth();
-  const navigate = useNavigate();
   return (
     <div>
       <Navbar />
-      <div className="homeWrapper">
-        {usergroup === "superadmin" || usergroup === "admin" ? (
-          <>
-            <div className="box">
-              <p
-                onClick={() => {
-                  // setToShow("userTable");
-                  navigate("/userlist");
-                  // console.log("CLICKED");
-                }}
-              >
-                Users
-              </p>
-              {usergroup == "superadmin" && (
-                <p
-                  onClick={() => {
-                    // setToShow("userGroup");
-                    navigate("/usergroups");
-                  }}
-                >
-                  User Groups
-                </p>
-              )}
-            </div>
-            <div className="display">
-              {/* {toShowObj[toShow]} */}
-              <Outlet />
-            </div>
-          </>
-        ) : (
-          <>
-            <h1>Welcome Home {user} 🤩</h1>
-          </>
-        )}
-      </div>
+
+      <Outlet />
     </div>
   );
 }
