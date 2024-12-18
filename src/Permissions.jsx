@@ -35,7 +35,7 @@ function Permissions() {
         </div>
         <div className="permissionHandler">
           <div className="permissionBox">
-            <h1>Available Permission</h1>
+            <h1>Permissions</h1>
 
             <div className="permissionList">
               <ul>
@@ -88,7 +88,7 @@ function Permissions() {
             </button>
           </div>
           <div className="permissionBox">
-            <h1>Granted Permission</h1>
+            <h1>Granted Permissions</h1>
             <div className="permissionList">
               <ul>
                 {["Create", "View", "Update", "Delete"].map((e, i) => {

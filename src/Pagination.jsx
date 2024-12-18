@@ -1,4 +1,5 @@
 import React from "react";
+import arrow from "././images/leftArrow.png";
 
 const Pagination = ({
   currPage,
@@ -24,7 +25,7 @@ const Pagination = ({
     <div className="pagination">
       {
         <img
-          src="src/images/leftArrow.png"
+          src={arrow}
           alt=""
           className="leftArrow"
           onClick={() => {
@@ -81,7 +82,7 @@ const Pagination = ({
 
       {
         <img
-          src="src/images/leftArrow.png"
+          src={arrow}
           alt=""
           className="rightArrow"
           onClick={() => {

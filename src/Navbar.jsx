@@ -22,13 +22,13 @@ function Navbar() {
         Collab-Project
       </h1>
       <ul>
-        <li
+        {/* <li
           onClick={() => {
             navigate("/");
           }}
         >
           Home
-        </li>
+        </li> */}
         <li
           onClick={() => {
             navigate("/dashboard");
@@ -37,13 +37,13 @@ function Navbar() {
           Dashboard
         </li>
 
-        <li
+        {/*   <li
           onClick={() => {
             navigate("/adduser");
           }}
         >
           Add User
-        </li>
+        </li> */}
         <li
           onClick={() => {
             navigate("/feed");
@@ -51,15 +51,15 @@ function Navbar() {
         >
           Feed
         </li>
-        <li
+        {/* <li
           onClick={() => {
             navigate("/changepassword");
           }}
         >
           Change Password
-        </li>
+        </li> */}
 
-        {localStorage.getItem("usergroup") === "superadmin" && (
+        {/*  {localStorage.getItem("usergroup") === "superadmin" && (
           <li
             onClick={() => {
               navigate("/addusergroup");
@@ -67,16 +67,16 @@ function Navbar() {
           >
             Add Usergroup
           </li>
-        )}
-        {localStorage.getItem("usergroup") === "superadmin" && (
+        )} */}
+        {/* {localStorage.getItem("usergroup") === "superadmin" && (
           <li
             onClick={() => {
               navigate("/updatedata");
             }}
           >
-            Update Data
+            Update Profile
           </li>
-        )}
+        )} */}
         {localStorage.getItem("usergroup") === "superadmin" && (
           <li
             onClick={() => {

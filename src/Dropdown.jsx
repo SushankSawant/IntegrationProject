@@ -124,7 +124,7 @@ function Dropdown({
           <>
             <p title={selectedData.toString()}>{selectedData.toString()}</p>
             <img
-              src="src\images\dropdown.png"
+              src={dropArror}
               alt=""
               style={{
                 transform: isDropdownOpen ? "rotate(180deg)" : "rotate(0deg)",

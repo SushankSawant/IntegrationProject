@@ -35,11 +35,26 @@ function App() {
                 path="/updatedata"
               />
               <Route index element={<Dashboard />} path="/dashboard" />
-              <Route
-                element={<AddUser role={["superadmin"]} />}
-                path="/adduser"
-              />
+
               <Route element={<Dashboard />} path="/dashboard">
+                <Route
+                  index
+                  element={<UserTable role={["superadmin", "admin"]} />}
+                />
+                <Route element={<ChangePassword />} path="changepassword" />
+
+                <Route
+                  element={<AddUserGroup role={["superadmin"]} />}
+                  path="addusergroup"
+                />
+                <Route
+                  element={<UpdateData role={["superadmin"]} />}
+                  path="updatedata"
+                />
+                <Route
+                  element={<AddUser role={["superadmin"]} />}
+                  path="adduser"
+                />
                 <Route
                   element={<UserTable role={["superadmin", "admin"]} />}
                   path="userlist"
@@ -50,12 +65,7 @@ function App() {
                 />
               </Route>
               <Route element={<Feed />} path="/feed" />
-              <Route element={<ChangePassword />} path="/changepassword" />
               <Route element={<NewsFull />} path="/fullpagenews"></Route>
-              <Route
-                element={<AddUserGroup role={["superadmin"]} />}
-                path="/addusergroup"
-              />
             </Route>
           </Route>
         </Routes>

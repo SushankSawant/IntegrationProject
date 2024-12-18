@@ -19,43 +19,46 @@ function UserGroup({ role }) {
   }, []);
 
   return (
-    <div className="box usergroups">
-      {userGroupArr?.map((e, i) => {
-        return (
-          <>
-            <p key={`usergroups_${i}`}>
-              {i + 1}. {e}
-              <span
-                onClick={() => {
-                  setSelectedGroup(e);
-                  axios
-                    .delete(
-                      "http://192.168.1.42:8000/api/v1/testapp/delete_usergroups",
-                      {
-                        headers: {
-                          usergroup: `${e}`,
-                          // "access-control-allow-origin": "*",
-                          // "Content-type": "application/json; charset=UTF-8",
-                        },
-                      }
-                    )
-                    .then((res) => {
-                      AxiosInstances.get("/list_usergroups").then((res) => {
-                        console.log(res);
-                        setUserGroupArr(res.data.data);
-                      });
-                    })
-                    .catch((err) => console.log(err, "DELETE ERROR"));
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                ❌
-              </span>
-            </p>
-          </>
-        );
-      })}
-    </div>
+    <>
+      {/* <h1>Usergroups</h1> */}
+      <div className="box usergroups">
+        {userGroupArr?.map((e, i) => {
+          return (
+            <>
+              <p key={`usergroups_${i}`}>
+                {i + 1}. {e}
+                <span
+                  onClick={() => {
+                    setSelectedGroup(e);
+                    axios
+                      .delete(
+                        "http://192.168.1.42:8000/api/v1/testapp/delete_usergroups",
+                        {
+                          headers: {
+                            usergroup: `${e}`,
+                            // "access-control-allow-origin": "*",
+                            // "Content-type": "application/json; charset=UTF-8",
+                          },
+                        }
+                      )
+                      .then((res) => {
+                        AxiosInstances.get("/list_usergroups").then((res) => {
+                          console.log(res);
+                          setUserGroupArr(res.data.data);
+                        });
+                      })
+                      .catch((err) => console.log(err, "DELETE ERROR"));
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  ❌
+                </span>
+              </p>
+            </>
+          );
+        })}
+      </div>
+    </>
   );
 }
 
