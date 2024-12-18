@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 // import "./LoginPage.css";
 import "./styling/RegisterPage.css";
 import InputBox from "./InputBox";
-// import Dropdown from "./DropDown";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";

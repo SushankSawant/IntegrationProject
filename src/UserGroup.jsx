@@ -20,7 +20,7 @@ function UserGroup({ role }) {
 
   return (
     <>
-      {/* <h1>Usergroups</h1> */}
+      {/* <h1>Usergroups  </h1> */}
       <div className="box usergroups">
         {userGroupArr?.map((e, i) => {
           return (

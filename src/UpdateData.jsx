@@ -137,6 +137,7 @@ function UpdateData({ role }) {
 
   return (
     <>
+      <Navbar />
       <div className="login_page">
         {
           <form className="validationForm" onSubmit={handleSubmit}>
