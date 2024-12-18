@@ -5,26 +5,7 @@
   font-family: Arial, Helvetica, sans-serif;
   transition: 0.5s all ease;
 }
-/* 
-:root {
-  --lightblue: #00adb5;
-  --grey: #393e46;
-  --whiteback: #ffffff;
-  --greyback: #f5f5f5;
-  --whitebackfont: #676767;
-  --darkbluefont: #0864b1;
-  --whitecard: #fff;
-}
 
-[data-theme="dark"] {
-  --blueback: #3e3e3e;
-  --whiteback: #3e3e3e;
-  --greyback: #292929;
-  --whitebackfont: #fff;
-  --darkbluefont: #55b3ff;
-  --whitecard: #1d1d1d;
-}
- */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -266,3 +247,63 @@ table {
     flex-direction: column;
   }
 }
+
+/* PERMISION PAGE */
+
+.permission_wrapper {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  gap: 20px;
+  .dropdownHolder {
+    width: 200px;
+  }
+
+  .permissionHandler {
+    display: flex;
+    gap: 10px;
+  }
+
+  .permissionBox {
+    width: 50%;
+    padding: 10px;
+    background-color: #1f1f1f;
+    border-radius: 10px;
+
+    .search_userList {
+      display: block;
+      input {
+        width: 100%;
+      }
+    }
+
+    .permissionList {
+      overflow-y: auto;
+      height: 200px;
+      margin-top: 5px;
+      background-color: #2d2d2d;
+      /* padding: 5px; */
+      ul {
+        display: flex;
+        flex-direction: column;
+        padding-left: 5px;
+        gap: 5px;
+        list-style: none;
+        li {
+          color: #fff;
+          padding: 5px;
+
+          &&:hover {
+            background-color: #00858c;
+            cursor: pointer;
+          }
+        }
+
+        .selected {
+          background-color: #00858c;
+        }
+      }
+    }
+  }
+}
+/* PERMISION PAGE */

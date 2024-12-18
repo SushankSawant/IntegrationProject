@@ -29,13 +29,7 @@ function Navbar() {
         >
           Home
         </li>
-        {/*  <li
-          onClick={() => {
-            navigate("/dashboard");
-          }}
-        >
-          Dashboard
-        </li> */}
+
         <li
           onClick={() => {
             navigate("/adduser");
@@ -76,11 +70,19 @@ function Navbar() {
             Update Data
           </li>
         )}
+        {localStorage.getItem("usergroup") === "superadmin" && (
+          <li
+            onClick={() => {
+              navigate("/permissions");
+            }}
+          >
+            Permissions
+          </li>
+        )}
         <li
           onClick={() => {
             let refresh_token =
               /* JSON.parse */ localStorage.getItem("refresh_token");
-            // console.log(token, "CONSOLED TOKEN");
             axios
               .post(
                 "http://192.168.1.42:8000/api/v1/testapp/logout",

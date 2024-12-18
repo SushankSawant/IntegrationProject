@@ -128,8 +128,8 @@ function RegisterPage() {
     "password",
   ];
 
-  let submit;
-  console.log(submit, "submit");
+  /*   let submit;
+  console.log(submit, "submit"); */
 
   function checkValidation(obj, req) {
     let response = [];
@@ -204,20 +204,20 @@ function RegisterPage() {
           title={"Phone"}
           id={"phone_number"}
           value={detail.phone_number}
-          onBlur={() => {
-            /* if (!apiValidation) {
-              document.getElementById("phone").classList.add("error");
-            } */
-          }}
+          // onBlur={() => {
+          //   /* if (!apiValidation) {
+          //     document.getElementById("phone").classList.add("error");
+          //   } */
+          // }}
           onChange={(e) => {
             setDetail((prev) => ({
               ...prev,
               phone_number: e.target.value.slice(0, 10),
             }));
-            clearTimeout(timer);
+            /*  clearTimeout(timer);
             timer = setTimeout(() => {
               checkUnique(e.target.value);
-            }, 1000);
+            }, 1000); */
           }}
           onKeyDown={(event) => {
             if (isNaN(event.key) && event.key !== "Backspace") {
