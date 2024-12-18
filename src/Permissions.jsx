@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import AxiosInstances from "./AxiosInstances";
-import Dropdown from "./DropDown";
+import Dropdown from "./Dropdown";
+// import Dropdown from "./DropDown";
 
 function Permissions() {
   const [usergroup, setUserGroups] = useState("");
@@ -66,9 +67,6 @@ function Permissions() {
           </div>
           <div className="permissionBox">
             <h1>Choosen Permission</h1>
-            {/* <form className="search_userList">
-              <input type="text" placeholder="Filter Permissions" />
-            </form> */}
             <div className="permissionList">
               <ul>
                 {Array.from({ length: 4 }).map((e, i) => {
