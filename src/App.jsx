@@ -34,7 +34,8 @@ function App() {
                 element={<UpdateData role={["superadmin"]} />}
                 path="/updatedata"
               />
-              <Route element={<Dashboard />} path="/dashboard" />
+              <Route index element={<Dashboard />} path="/dashboard" />
+              {/* <Route element={<Dashboard />} path="/dashboard" /> */}
               <Route element={<AddUser />} path="/adduser" />
 
               {/* <Route element={<Dashboard />} path="/dashboard" /> */}
