@@ -10,7 +10,7 @@ function UserGroup({ role }) {
   useEffect(() => {
     let usergroup = localStorage.getItem("usergroup");
     if (!role.includes(usergroup)) {
-      navigate("/");
+      navigate("/dashboard");
     }
     AxiosInstances.get("/list_usergroups").then((res) => {
       console.log(res);

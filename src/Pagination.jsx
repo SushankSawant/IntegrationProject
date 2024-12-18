@@ -65,7 +65,7 @@ const Pagination = ({
         );
       })}
 
-      {currPage < totalPage - 6 && (
+      {currPage < totalPage - 4 && (
         <>
           <p style={{ color: "white" }}>.......</p>
           <button

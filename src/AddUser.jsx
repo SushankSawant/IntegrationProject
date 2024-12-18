@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputBox from "./InputBox";
-import Dropdown from "./DropDown";
+// import Dropdown from "./DropDown";
 import AxiosInstances from "./AxiosInstances";
 import Navbar from "./Navbar";
+import Dropdown from "./Dropdown";
+import axios from "axios";
 
-function AddUser() {
+function AddUser({ role }) {
   const [userGroupArr, setUserGroupArr] = useState(null);
   const navigate = useNavigate();
   const [message, setMessage] = useState({ message: "", type: "" });
 
   useEffect(() => {
+    let usergroup = localStorage.getItem("usergroup");
+    if (!role.includes(usergroup)) {
+      navigate("/");
+    }
     /*    let loginStatus = localStorage.getItem("access_token");
     if (loginStatus) {
       navigate("/");

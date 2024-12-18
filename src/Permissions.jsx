@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import AxiosInstances from "./AxiosInstances";
-import Dropdown from "./DropDown";
+import Dropdown from "./Dropdown";
+// import Dropdown from "./DropDown";
 
 function Permissions() {
   const [usergroup, setUserGroups] = useState("");
@@ -14,12 +15,11 @@ function Permissions() {
       setUserGroupArr(res.data.data);
     });
   }, []);
-  console.log(addPermissionArr);
-  console.log(removePermissionArr);
+  // console.log(addPermissionArr);
+  // console.log(removePermissionArr);
 
   return (
     <>
-      {/* <Navbar /> */}
       <div className="permission_wrapper">
         <h1>Permissions</h1>
         <div className="dropdownHolder">
@@ -36,9 +36,28 @@ function Permissions() {
         <div className="permissionHandler">
           <div className="permissionBox">
             <h1>Available Permission</h1>
+
             <div className="permissionList">
               <ul>
-                {Array.from({ length: 20 }).map((e, i) => {
+                {["Create", "View", "Update", "Delete"].map((e, i) => {
+                  return (
+                    <li
+                      className={addPermissionArr.includes(e) ? "selected" : ""}
+                      onClick={() => {
+                        if (!addPermissionArr.includes(e)) {
+                          setAddPermissionArr((p) => [...p, e]);
+                        } else {
+                          let ogArr = addPermissionArr;
+                          ogArr.splice(addPermissionArr.indexOf(e), 1);
+                          setAddPermissionArr([...ogArr]);
+                        }
+                      }}
+                    >
+                      {e}
+                    </li>
+                  );
+                })}
+                {/* {Array.from({ length: 20 }).map((e, i) => {
                   return (
                     <li
                       className={
@@ -57,42 +76,42 @@ function Permissions() {
                       {i + 1}
                     </li>
                   );
-                })}
+                })} */}
               </ul>
             </div>
-
-            <button>Add</button>
+            <button
+              onClick={() => {
+                console.log(addPermissionArr);
+              }}
+            >
+              Update
+            </button>
           </div>
           <div className="permissionBox">
-            <h1>Choosen Permission</h1>
-            {/* <form className="search_userList">
-              <input type="text" placeholder="Filter Permissions" />
-            </form> */}
+            <h1>Granted Permission</h1>
             <div className="permissionList">
               <ul>
-                {Array.from({ length: 4 }).map((e, i) => {
+                {["Create", "View", "Update", "Delete"].map((e, i) => {
                   return (
                     <li
-                      className={
-                        removePermissionArr.includes(i + 1) ? "selected" : ""
-                      }
+                    /* className={addPermissionArr.includes(e) ? "selected" : ""}
                       onClick={() => {
-                        if (!removePermissionArr.includes(i + 1)) {
-                          setRemovePermissionArr((p) => [...p, i + 1]);
+                        if (!addPermissionArr.includes(e)) {
+                          setAddPermissionArr((p) => [...p, e]);
                         } else {
-                          let ogArr = removePermissionArr;
-                          ogArr.splice(removePermissionArr.indexOf(i + 1), 1);
-                          setRemovePermissionArr([...ogArr]);
+                          let ogArr = addPermissionArr;
+                          ogArr.splice(addPermissionArr.indexOf(e), 1);
+                          setAddPermissionArr([...ogArr]);
                         }
-                      }}
+                      }} */
                     >
-                      {i + 1}
+                      {e}
                     </li>
                   );
                 })}
               </ul>
             </div>
-            <button>Remove</button>
+            {/* <button>Remove</button> */}
           </div>
         </div>
       </div>
