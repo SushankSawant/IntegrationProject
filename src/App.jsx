@@ -30,7 +30,10 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<Home />} path="/" exact>
               <Route element={<Permissions />} path="/permissions" />
-              <Route element={<UpdateData />} path="/updatedata" />
+              <Route
+                element={<UpdateData role={["superadmin"]} />}
+                path="/updatedata"
+              />
               <Route element={<Dashboard />} path="/dashboard" />
               <Route element={<AddUser />} path="/adduser" />
 
