@@ -1,54 +1,52 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
 // import AxiosInstances from "./AxiosInstances";
 
 function Navbar() {
-  // const [currPage, setCurPage] = useState("home");
   const navigate = useNavigate();
   const { logoutAuth } = useAuth();
-  console.log(useLocation());
-  let currPage = useLocation().pathname;
-  console.log(currPage);
+
+  useEffect(() => {
+    console.log("MOUNTED NAV");
+  }, []);
 
   return (
     <nav>
-      <h1>CollabProject</h1>
+      <h1
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Collab-Project
+      </h1>
       <ul>
         <li
-          style={{ background: currPage == "/" && "#00acb57c" }}
           onClick={() => {
             navigate("/");
-            // setCurPage("home");
           }}
         >
           Home
         </li>
-        <li
-          style={{ background: currPage == "/dashboard" && "#00acb57c" }}
-          onClick={() => {
-            navigate("/dashboard");
-            // setCurPage("dashboard");
-          }}
-        >
-          Dashboard
-        </li>
 
         <li
-          style={{ background: currPage == "/feed" && "#00acb57c" }}
+          onClick={() => {
+            navigate("/adduser");
+          }}
+        >
+          Add User
+        </li>
+        <li
           onClick={() => {
             navigate("/feed");
-            // setCurPage("feed");
           }}
         >
           Feed
         </li>
         <li
-          style={{ background: currPage == "/changepassword" && "#00acb57c" }}
           onClick={() => {
             navigate("/changepassword");
-            // setCurPage("changepassword");
           }}
         >
           Change Password
@@ -56,16 +54,14 @@ function Navbar() {
 
         {localStorage.getItem("usergroup") === "superadmin" && (
           <li
-            style={{ background: currPage == "/addusergroup" && "#00acb57c" }}
             onClick={() => {
               navigate("/addusergroup");
-              // setCurPage("addusergroup");
             }}
           >
             Add Usergroup
           </li>
         )}
-        {localStorage.getItem("usergroup") == "/superadmin" && (
+        {localStorage.getItem("usergroup") === "superadmin" && (
           <li
             onClick={() => {
               navigate("/updatedata");
@@ -74,11 +70,19 @@ function Navbar() {
             Update Data
           </li>
         )}
+        {localStorage.getItem("usergroup") === "superadmin" && (
+          <li
+            onClick={() => {
+              navigate("/permissions");
+            }}
+          >
+            Permissions
+          </li>
+        )}
         <li
           onClick={() => {
             let refresh_token =
               /* JSON.parse */ localStorage.getItem("refresh_token");
-            // console.log(token, "CONSOLED TOKEN");
             axios
               .post(
                 "http://192.168.1.42:8000/api/v1/testapp/logout",
@@ -98,6 +102,7 @@ function Navbar() {
                 localStorage.removeItem("refresh_token");
                 localStorage.removeItem("access_token");
                 localStorage.removeItem("username");
+                localStorage.removeItem("usergroup");
                 navigate("/login");
               });
           }}

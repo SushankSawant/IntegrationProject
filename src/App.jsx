@@ -41,6 +41,7 @@ function App() {
                 </Route>
               }
               <Route element={<Feed />} path="/feed" />
+              <Route element={<Permissions />} path="/permissions" />
               <Route element={<ChangePassword />} path="/changepassword" />
               <Route element={<NewsFull />} path="/fullpagenews"></Route>
               <Route
