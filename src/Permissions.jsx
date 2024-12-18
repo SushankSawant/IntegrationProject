@@ -15,8 +15,8 @@ function Permissions() {
       setUserGroupArr(res.data.data);
     });
   }, []);
-  console.log(addPermissionArr);
-  console.log(removePermissionArr);
+  // console.log(addPermissionArr);
+  // console.log(removePermissionArr);
 
   return (
     <>
@@ -63,16 +63,23 @@ function Permissions() {
               </ul>
             </div>
 
-            <button>Add</button>
+            <button
+              onClick={() => {
+                console.log(addPermissionArr);
+                setAddPermissionArr([]);
+              }}
+            >
+              Update
+            </button>
           </div>
           <div className="permissionBox">
-            <h1>Choosen Permission</h1>
+            <h1>Granted Permission</h1>
             <div className="permissionList">
               <ul>
                 {Array.from({ length: 4 }).map((e, i) => {
                   return (
                     <li
-                      className={
+                    /*    className={
                         removePermissionArr.includes(i + 1) ? "selected" : ""
                       }
                       onClick={() => {
@@ -83,7 +90,7 @@ function Permissions() {
                           ogArr.splice(removePermissionArr.indexOf(i + 1), 1);
                           setRemovePermissionArr([...ogArr]);
                         }
-                      }}
+                      }} */
                     >
                       {i + 1}
                     </li>
@@ -91,7 +98,7 @@ function Permissions() {
                 })}
               </ul>
             </div>
-            <button>Remove</button>
+            {/* <button>Remove</button> */}
           </div>
         </div>
       </div>
