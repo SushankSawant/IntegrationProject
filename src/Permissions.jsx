@@ -40,7 +40,25 @@ function Permissions() {
 
             <div className="permissionList">
               <ul>
-                {Array.from({ length: 20 }).map((e, i) => {
+                {["Create", "View", "Update", "Delete"].map((e, i) => {
+                  return (
+                    <li
+                      className={addPermissionArr.includes(e) ? "selected" : ""}
+                      onClick={() => {
+                        if (!addPermissionArr.includes(e)) {
+                          setAddPermissionArr((p) => [...p, e]);
+                        } else {
+                          let ogArr = addPermissionArr;
+                          ogArr.splice(addPermissionArr.indexOf(e), 1);
+                          setAddPermissionArr([...ogArr]);
+                        }
+                      }}
+                    >
+                      {e}
+                    </li>
+                  );
+                })}
+                {/* {Array.from({ length: 20 }).map((e, i) => {
                   return (
                     <li
                       className={
@@ -59,14 +77,12 @@ function Permissions() {
                       {i + 1}
                     </li>
                   );
-                })}
+                })} */}
               </ul>
             </div>
-
             <button
               onClick={() => {
                 console.log(addPermissionArr);
-                setAddPermissionArr([]);
               }}
             >
               Update
@@ -76,23 +92,21 @@ function Permissions() {
             <h1>Granted Permission</h1>
             <div className="permissionList">
               <ul>
-                {Array.from({ length: 4 }).map((e, i) => {
+                {["Create", "View", "Update", "Delete"].map((e, i) => {
                   return (
                     <li
-                    /*    className={
-                        removePermissionArr.includes(i + 1) ? "selected" : ""
-                      }
+                    /* className={addPermissionArr.includes(e) ? "selected" : ""}
                       onClick={() => {
-                        if (!removePermissionArr.includes(i + 1)) {
-                          setRemovePermissionArr((p) => [...p, i + 1]);
+                        if (!addPermissionArr.includes(e)) {
+                          setAddPermissionArr((p) => [...p, e]);
                         } else {
-                          let ogArr = removePermissionArr;
-                          ogArr.splice(removePermissionArr.indexOf(i + 1), 1);
-                          setRemovePermissionArr([...ogArr]);
+                          let ogArr = addPermissionArr;
+                          ogArr.splice(addPermissionArr.indexOf(e), 1);
+                          setAddPermissionArr([...ogArr]);
                         }
                       }} */
                     >
-                      {i + 1}
+                      {e}
                     </li>
                   );
                 })}
