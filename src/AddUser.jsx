@@ -153,7 +153,7 @@ function AddUser() {
   console.log(apiRes);
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="register_page">
         {message?.message !== "" && (
           <p className={message.type}>{message.message}</p>

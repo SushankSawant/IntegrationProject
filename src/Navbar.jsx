@@ -29,6 +29,13 @@ function Navbar() {
         >
           Home
         </li>
+        <li
+          onClick={() => {
+            navigate("/dashboard");
+          }}
+        >
+          Dashboard
+        </li>
 
         <li
           onClick={() => {

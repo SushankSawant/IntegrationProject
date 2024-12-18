@@ -14,7 +14,7 @@ import UserGroup from "./UserGroup";
 function Home() {
   // const navigate = useNavigate();
   let usergroup = localStorage.getItem("usergroup");
-  console.log(useLocation());
+  // console.log(useLocation());
 
   // const [toShow, setToShow] = useState("");
   /*  const toShowObj = {

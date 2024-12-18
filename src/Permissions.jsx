@@ -19,7 +19,7 @@ function Permissions() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="permission_wrapper">
         <h1>Permissions</h1>
         <div className="dropdownHolder">
@@ -36,7 +36,6 @@ function Permissions() {
         <div className="permissionHandler">
           <div className="permissionBox">
             <h1>Available Permission</h1>
-
             <div className="permissionList">
               <ul>
                 {Array.from({ length: 20 }).map((e, i) => {
