@@ -2,7 +2,7 @@ nav {
   background-color: var(--glassback);
   backdrop-filter: blur(3px);
   /* color: #222831; */
-  padding: 1.1vw;
+  padding: 1.3vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,9 +11,15 @@ nav {
   width: 100%;
   z-index: 10;
   h1 {
-    color: var(--whitefont);
-    font-size: 1.6vw;
+    font-size: 2vw;
     text-shadow: 0px 0px 20px var(--whitefont);
+    color: var(--whitefont);
+
+    &&:hover {
+      text-shadow: 0px 0px 10px var(--bluefont);
+      color: var(--bluefont);
+      cursor: pointer;
+    }
   }
 
   ul {
@@ -39,10 +45,10 @@ nav {
     text-transform: uppercase;
 
     &&:hover {
-      background-color: #00acb57c;
+      background-color: #3f71af8d;
     }
   }
   .active {
-    background-color: #00acb57c;
+    background-color: #3f72af;
   }
 }

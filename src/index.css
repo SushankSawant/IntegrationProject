@@ -11,24 +11,45 @@ body {
 }
 
 :root {
+  /* LIGHT MODE */
+  --blueback: #3f72af;
+  --greyback: #f9f7f7;
+  --whitefont: #112d4e;
+  --lightgreyback: #dbe2ef;
+  --bluefont: #3f72af;
+  --glassback: #dbe2ef8e;
+
+  /* DARK MODE  */
+  /*  --blueback: #00adb5;
+  --greyback: #393e46;
+  --whitefont: #eeeeee;
+  --lightgreyback: #272727;
+  --bluefont: #00adb5;
+  --glassback: #211a1a73; */
+}
+
+[data-theme="dark"] {
+  /* DARK MODE  */
   --blueback: #00adb5;
   --greyback: #393e46;
   --whitefont: #eeeeee;
   --lightgreyback: #272727;
   --bluefont: #00adb5;
   --glassback: #211a1a73;
-  /* --darkbluefont: #0864b1; */
-  /* --whitecard: #fff; */
-}
 
-/* [data-theme="dark"] {
+  /*  --blueback: #00adb5;
+  --greyback: #393e46;
+  --whitefont: #eeeeee;
+  --lightgreyback: #272727;
+  --bluefont: #00adb5;
+  --glassback: #211a1a73;
   --blueback: #3e3e3e;
   --whiteback: #3e3e3e;
   --greyback: #292929;
   --whitebackfont: #fff;
   --darkbluefont: #55b3ff;
-  --whitecard: #1d1d1d;
-} */
+  --whitecard: #1d1d1d; */
+}
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -44,7 +65,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00858c;
+  background: #3f71af7b;
 }
 
 ::selection {
@@ -57,12 +78,12 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  gap: 10px;
+  gap: 20px;
   align-items: flex-start;
 
   width: 100%;
   h1 {
-    color: #eeeeee;
+    color: var(--whitefont);
   }
 }
 
@@ -70,16 +91,16 @@ body {
 
 table {
   text-align: center;
-  box-shadow: 0px 0px 20px #0000006d;
+  box-shadow: 0px 0px 10px #00000038;
   border-radius: 10px;
   padding: 10px;
-  font-size: 1vw;
+  font-size: clamp(7px, 1vw, 15px);
   width: 100%;
   position: relative;
   thead {
     /* border-radius: 20px; */
     background-color: var(--lightgreyback);
-    color: #fff;
+    color: var(--whitefont);
     th {
       border-radius: 5px;
       padding: 10px;
@@ -116,7 +137,7 @@ table {
   backdrop-filter: blur(2px);
   border-radius: 10px;
   position: sticky;
-  bottom: 0px;
+  bottom: 10px;
   width: 100%;
   /* box-shadow: 0px 0px 10px #000000c9; */
 
@@ -128,14 +149,14 @@ table {
     height: 3vw;
     width: 3vw;
     font-size: 1.35vw;
-    background-color: #1f1f1f;
+    background-color: var(--greyback);
     border: none;
     border-radius: 10px;
     color: var(--blueback);
     transition: 0.5s all ease;
     cursor: pointer;
     &&:hover {
-      background-color: var(--blueback);
+      background-color: var(--greyback);
       color: #fff;
     }
   }
@@ -171,6 +192,10 @@ table {
 
 .display {
   width: 100%;
+
+  .login_page {
+    height: 80vh;
+  }
 }
 
 .boxHolder {
@@ -181,19 +206,25 @@ table {
   gap: 10px;
 
   .box {
-    background-color: #1f1f1f;
+    background-color: var(--lightgreyback);
     /* height: 250px; */
+    width: 100%;
     color: var(--blueback);
     padding: 10px;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
     gap: 5px;
+    h1 {
+      font-size: clamp(7px, 2vw, 28px);
+      color: var(--whitefont);
+    }
     p {
       border-radius: 5px;
       background-color: var(--greyback);
       padding: 10px;
-      font-size: 20px;
+      font-size: clamp(7px, 2vw, 20px);
+      /* font-size: 20px; */
       cursor: pointer;
       text-transform: capitalize;
 
@@ -206,7 +237,8 @@ table {
 .box.usergroups {
   width: 100%;
   box-shadow: 0px 0px 20px #0000006d;
-  background-color: #1f1f1f;
+  background-color: var(--lightgreyback);
+
   /* height: 250px; */
   color: var(--blueback);
   padding: 10px;
@@ -215,6 +247,7 @@ table {
   border-radius: 10px;
   gap: 5px;
   p {
+    border-radius: 5px;
     cursor: auto;
     position: relative;
     background-color: var(--greyback);
@@ -230,10 +263,6 @@ table {
 }
 
 .search_userList {
-  /* box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.638); */
-  /* border: 1px solid rgba(255, 255, 255, 0.18); */
-  /* background: #22283145; */
-  /* backdrop-filter: blur(2px); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -241,8 +270,8 @@ table {
   margin-bottom: 10px;
 
   input {
-    color: #eeeeee;
-    background-color: #4e535b;
+    color: var(--whitefont);
+    background-color: var(--lightgreyback);
     border: none;
     outline: none;
     font-size: 20px;
@@ -252,6 +281,7 @@ table {
   }
 
   button {
+    margin-top: 0;
     padding: 10px;
     font-size: 20px;
     width: 80px;
@@ -266,7 +296,9 @@ table {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: white;
+  /* background-color: white; */
+  background-color: var(--glassback);
+
   font-weight: bold;
   padding: 10px;
   border-radius: 10px;
@@ -279,13 +311,13 @@ table {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: white;
+  background-color: var(--glassback);
   font-weight: bold;
   padding: 10px;
   border-radius: 10px;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 900px) {
   .homeWrapper {
     flex-direction: column;
   }
@@ -329,30 +361,58 @@ table {
       overflow-y: auto;
       height: 200px;
       margin-top: 5px;
+      padding: 5px;
       background-color: var(--greyback);
       /* padding: 5px; */
       ul {
         display: flex;
         flex-direction: column;
-        padding-left: 5px;
+        padding-left: 0px;
         gap: 5px;
         list-style: none;
         li {
-          color: #fff;
+          color: var(--whitefont);
           padding: 8px;
-
+          text-transform: capitalize;
           border-radius: 5px;
           &&:hover {
-            background-color: #00c2cc;
+            background-color: var(--lightgreyback);
             cursor: pointer;
           }
         }
 
         .selected {
-          background-color: #00858c;
+          background-color: #3f71af83;
+          color: var(--whitefont);
         }
       }
     }
   }
 }
 /* PERMISION PAGE */
+
+/* THEME TOGGLE */
+.theme-toggle {
+  /* position: fixed; */
+  cursor: pointer;
+  /* right: 50px; */
+  /* top: 30px; */
+  /* z-index: 200; */
+  background-color: #9fd2ff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  &&:hover {
+    transform: rotate(180deg);
+    /* filter: invert(1); */
+  }
+}
+/* THEME TOGGLE */

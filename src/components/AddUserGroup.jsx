@@ -13,10 +13,14 @@ function AddUserGroup({ role }) {
   let navigate = useNavigate();
 
   useEffect(() => {
-    let usergroup = localStorage.getItem("usergroup");
-    if (!role.includes(usergroup)) {
+    let permissions = JSON.parse(localStorage.getItem("permissions"));
+    if (!permissions.includes("can_add")) {
       navigate("/");
     }
+    /*  let usergroup = localStorage.getItem("usergroup");
+    if (!role.includes(usergroup)) {
+      navigate("/");
+    } */
   }, []);
 
   function addUserGroup(e) {
@@ -57,6 +61,7 @@ function AddUserGroup({ role }) {
             title="User Group"
             id={"usergroup"}
             value={usergroup.usergroup}
+            placeholder={"Enter Usergroup Name"}
             onChange={(e) => {
               setUserGroupArr((p) => ({ ...p, usergroup: e.target.value }));
               console.log(e.target.value);

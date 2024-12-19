@@ -11,16 +11,17 @@ function AddUser({ role }) {
   const [userGroupArr, setUserGroupArr] = useState(null);
   const navigate = useNavigate();
   const [message, setMessage] = useState({ message: "", type: "" });
+  let permissions = JSON.parse(localStorage.getItem("permissions"));
 
   useEffect(() => {
-    let usergroup = localStorage.getItem("usergroup");
-    if (!role.includes(usergroup)) {
+    if (!permissions.includes("can_add")) {
       navigate("/");
     }
-    /*    let loginStatus = localStorage.getItem("access_token");
-    if (loginStatus) {
+    /*   let usergroup = localStorage.getItem("usergroup");
+    if (!role.includes(usergroup)) {
       navigate("/");
     } */
+
     AxiosInstances.get(
       localStorage.getItem("usergroup") == "superadmin"
         ? "/list_usergroups"
@@ -184,6 +185,7 @@ function AddUser({ role }) {
             id={"firstname"}
             title={"First Name"}
             value={detail.firstname}
+            placeholder={"Enter Firstname"}
             onChange={(e) =>
               setDetail((p) => ({ ...p, firstname: e.target.value }))
             }
@@ -192,6 +194,7 @@ function AddUser({ role }) {
             id={"lastname"}
             title={"Last Name"}
             value={detail.lastname}
+            placeholder={"Enter Lastname"}
             onChange={(e) =>
               setDetail((p) => ({ ...p, lastname: e.target.value }))
             }
@@ -200,6 +203,7 @@ function AddUser({ role }) {
             title={"Username"}
             id={"username"}
             value={detail.username}
+            placeholder={"Enter Username"}
             onChange={(e) =>
               setDetail((p) => ({
                 ...p,
@@ -212,6 +216,7 @@ function AddUser({ role }) {
             title={"Phone"}
             id={"phone_number"}
             value={detail.phone_number}
+            placeholder={"Enter Phone"}
             onChange={(e) => {
               setDetail((prev) => ({
                 ...prev,
@@ -228,6 +233,7 @@ function AddUser({ role }) {
             title={"Email"}
             id={"email"}
             value={detail.email}
+            placeholder={"Enter Email Address"}
             onBlur={() => {
               if (
                 !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
@@ -277,6 +283,7 @@ function AddUser({ role }) {
               id={"password"}
               type={"password"}
               value={detail.password}
+              placeholder={"Enter Password"}
               // className={errorFound.password ? "error" : ""}
               onChange={(e) => handlePasswordChange(e)}
               onFocus={() => {
@@ -302,6 +309,7 @@ function AddUser({ role }) {
             className={detail.password !== confirmPass ? "error" : ""}
             id={"confirmPassword"}
             value={confirmPass}
+            placeholder={"Re-enter Password"}
             onChange={(e) => {
               setConfirmPass(e.target.value.trim());
             }}

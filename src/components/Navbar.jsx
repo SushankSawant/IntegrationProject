@@ -2,11 +2,16 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
+import { useThemeContext } from "../Context/ThemeContext";
 // import AxiosInstances from "./AxiosInstances";
+import moon from "../images/moon.png";
+import sun from "../images/sun.png";
 
 function Navbar() {
   const navigate = useNavigate();
   const { logoutAuth } = useAuth();
+  const { theme, toggleTheme } = useThemeContext();
+  let permissions = localStorage.getItem("permissions");
 
   useEffect(() => {
     console.log("MOUNTED NAV");
@@ -29,13 +34,16 @@ function Navbar() {
         >
           Home
         </li> */}
-        <li
-          onClick={() => {
-            navigate("/dashboard");
-          }}
-        >
-          Dashboard
-        </li>
+        {(permissions.includes("can_view") ||
+          permissions.includes("can_add")) && (
+          <li
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+          >
+            Dashboard
+          </li>
+        )}
 
         {/*   <li
           onClick={() => {
@@ -110,12 +118,20 @@ function Navbar() {
                 localStorage.removeItem("access_token");
                 localStorage.removeItem("username");
                 localStorage.removeItem("usergroup");
+                localStorage.removeItem("permissions");
                 navigate("/login");
               });
           }}
         >
           Logout
         </li>
+        <div className="theme-toggle" onClick={toggleTheme}>
+          {theme === "light" ? (
+            <img src={sun} alt="" />
+          ) : (
+            <img src={moon} alt="" />
+          )}
+        </div>
       </ul>
     </nav>
   );

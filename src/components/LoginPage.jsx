@@ -36,18 +36,20 @@ function LoginPage() {
           {},
           {
             headers: {
-              // "Content-Type": "application/json",
               username: loginData.username,
               password: loginData.password,
             },
           }
         )
         .then((res) => {
-          // localStorage.setItem("token", JSON.stringify(res.data));
           localStorage.setItem("access_token", res.data.access_token);
           localStorage.setItem("refresh_token", res.data.refresh_token);
           localStorage.setItem("username", res.data.username);
           localStorage.setItem("usergroup", res.data.usergroup);
+          localStorage.setItem(
+            "permissions",
+            JSON.stringify(res.data.permissions)
+          );
           setApiLoginRes(res);
           loginAuth(res.data);
           setApiLoginErr(null);
@@ -77,7 +79,9 @@ function LoginPage() {
         <InputBox
           title="User Name"
           id={"username"}
+          placeHolder={"Enter Username"}
           value={loginData.username}
+          autoFocus
           onChange={(e) => {
             setLoginData((p) => ({
               ...p,
@@ -92,6 +96,7 @@ function LoginPage() {
           title="Password"
           id={"password"}
           type={"password"}
+          placeHolder={"Enter Password"}
           value={loginData.password}
           onChange={(e) => {
             setLoginData((p) => ({

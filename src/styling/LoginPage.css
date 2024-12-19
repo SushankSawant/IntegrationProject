@@ -24,7 +24,7 @@
 }
 
 .login_wrapper {
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.638);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.334);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,16 +36,7 @@
   border-radius: 10px;
   padding: 50px;
   position: relative;
-  /* overflow: hidden; */
   z-index: 5;
-  /*  &&::before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    background-color: #EEEEEEfff5c;
-    filter: blur(10px);
-    position: absolute;
-  } */
 
   svg {
     /* background-color: #89a8b2; */
@@ -62,7 +53,7 @@ button {
   border: none;
   margin-top: 5px;
   border-radius: 10px;
-  color: var(--whitefont);
+  color: var(--greyback);
   background-color: var(--blueback);
   &&:hover {
     background-color: var(--greyback);
@@ -89,6 +80,7 @@ a {
 
   .showIcon {
     position: absolute;
+    filter: invert(1);
     top: 60%;
     height: 20px;
     width: 20px;

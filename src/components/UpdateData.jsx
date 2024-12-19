@@ -6,12 +6,15 @@ import AxiosInstances from "../AxiosInstances";
 import axios from "axios";
 import Dropdown from "./Dropdown";
 
-function UpdateData({ role }) {
+function UpdateData({ /* role , */ reqPermission }) {
   useEffect(() => {
-    let usergroup = localStorage.getItem("usergroup");
-    if (!role.includes(usergroup)) {
+    let permissions = JSON.parse(localStorage.getItem("permissions"));
+    if (!permissions.includes("can_update")) {
       navigate("/");
     }
+    /*  if (!role.includes(usergroup)) {
+      navigate("/");
+    } */
   }, []);
   // const [curUsername, setCurUsername] = useState("");
   const [message, setMessage] = useState({ message: "", type: "" });
@@ -138,7 +141,7 @@ function UpdateData({ role }) {
   return (
     <>
       {/* <Navbar /> */}
-      <div className="login_page">
+      <div className="register_page">
         {
           <form className="validationForm" onSubmit={handleSubmit}>
             <h1 className="form_title">Update Details</h1>

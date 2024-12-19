@@ -31,9 +31,15 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<Home />} path="/" exact>
               <Route index element={<LandingPage />} />
-              <Route element={<Permissions />} path="/permissions" />
               <Route
-                element={<UpdateData role={["superadmin"]} />}
+                element={<Permissions role={["superadmin"]} />}
+                path="/permissions"
+              />
+              <Route
+                element={
+                  <UpdateData /* role={["superadmin"]} */ /*  permissions={"can_update"} */
+                  />
+                }
                 path="/updatedata"
               />
               {/* <Route element={<Dashboard />} path="/dashboard" /> */}
@@ -41,28 +47,46 @@ function App() {
               <Route element={<Dashboard />} path="/dashboard">
                 <Route
                   index
-                  element={<UserTable role={["superadmin", "admin"]} />}
+                  element={
+                    <UserTable /* role={["superadmin", "admin"]} */ /* permissions={"can_view"}  */
+                    />
+                  }
                 />
                 <Route element={<ChangePassword />} path="changepassword" />
 
                 <Route
-                  element={<AddUserGroup role={["superadmin"]} />}
+                  element={
+                    <AddUserGroup /* role={["superadmin", "admin", "member"]}  */ /* permissions={"can_add"} */
+                    />
+                  }
                   path="addusergroup"
                 />
                 <Route
-                  element={<UpdateData role={["superadmin"]} />}
+                  element={
+                    <UpdateData /* role={["superadmin"]} */ /* permissions={"can_update"} */
+                    />
+                  }
                   path="updatedata"
                 />
                 <Route
-                  element={<AddUser role={["superadmin"]} />}
+                  element={
+                    <AddUser /* role={["superadmin", "admin", "member"]} */ /* permissions={"can_add"}  */
+                    />
+                  }
                   path="adduser"
                 />
                 <Route
-                  element={<UserTable role={["superadmin", "admin"]} />}
+                  element={
+                    <UserTable /* role={["superadmin", "admin"]} */ /* permissions={"can_view"}  */
+                    />
+                  }
                   path="userlist"
                 />
                 <Route
-                  element={<UserGroup role={["superadmin"]} />}
+                  element={
+                    <UserGroup /* role={["superadmin"]} */ /* permissions={"can_view"} */
+                    />
+                  }
                   path="usergroups"
                 />
               </Route>

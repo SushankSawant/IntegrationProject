@@ -2,23 +2,39 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import AxiosInstances from "../AxiosInstances";
 import Dropdown from "./Dropdown";
+import { useNavigate } from "react-router-dom";
 // import Dropdown from "./DropDown";
 
-function Permissions() {
-  const [usergroup, setUserGroups] = useState("");
-  const [userGroupArr, setUserGroupArr] = useState(null);
-  const [addPermissionArr, setAddPermissionArr] = useState([]);
-  const [removePermissionArr, setRemovePermissionArr] = useState([]);
-  useEffect(() => {
-    // setUserGroups(localStorage.getItem)
-    AxiosInstances.get("/list_usergroups").then((res) => {
-      console.log(res);
-      setUserGroupArr(res.data.data);
-    });
-  }, []);
-  // console.log(addPermissionArr);
-  // console.log(removePermissionArr);
-  console.log(usergroup);
+function Permissions({ role }) {
+  const [usergroup, setUserGroup] = useState("");
+  const [apiRes, setApiRes] = useState(null);
+  const [permissionArr, setPermissionArr] = useState([]);
+  const navigate = useNavigate();
+  useEffect(
+    () => {
+      // setUserGroup(localStorage.getItem)
+      let usergroup1 = localStorage.getItem("usergroup");
+      if (!role.includes(usergroup1)) {
+        navigate("/");
+      }
+      AxiosInstances.get("/list_permissions").then((res) => {
+        console.log(res);
+        setApiRes(res.data.data);
+      });
+      /*  if (usergroup) {
+      setPermissionArr(
+        apiRes[apiRes?.findIndex((e) => e["usergroup"] == usergroup)][
+          "permissions"
+        ]
+      );
+    } */
+    },
+    [
+      /* usergroup */
+    ]
+  );
+
+  console.log({ usergroup: usergroup, permission: permissionArr });
 
   return (
     <>
@@ -29,31 +45,38 @@ function Permissions() {
             selectedData={usergroup}
             dropTitle={"User Group"}
             onchange={(e) => {
-              setUserGroups(e);
+              setUserGroup(e);
             }}
-            reqArr={userGroupArr}
+            reqArr={apiRes}
           />
         </div> */}
         <div className="permissionHandler">
           <div className="permissionBox">
-            <h1>Usergroups</h1>
+            <h1>Select Usergroup</h1>
 
             <div className="permissionList">
               <ul>
-                {userGroupArr?.map((e, i) => {
+                {apiRes?.map((e, i) => {
                   return (
                     <li
-                      className={usergroup == e ? "selected" : ""}
+                      className={usergroup == e["usergroup"] ? "selected" : ""}
                       onClick={() => {
-                        setUserGroups(e);
-                        /*  if (!addPermissionArr.includes(e)) {
-                          setUserGroups(e);
+                        let selected = e["usergroup"];
+                        setUserGroup(selected);
+                        setPermissionArr(
+                          apiRes[
+                            apiRes?.findIndex((e) => e["usergroup"] == selected)
+                          ]["permissions"]
+                        );
+                        /*  if (usergroup == e) {
+                          setUserGroup("");
+                          setPermissionArr([]);
                         } else {
-                         setUserGroups
+                          setUserGroup(e["usergroup"]);
                         } */
                       }}
                     >
-                      {e}
+                      {e["usergroup"]}
                     </li>
                   );
                 })}
@@ -61,7 +84,7 @@ function Permissions() {
             </div>
             {/*   <button
               onClick={() => {
-                console.log(addPermissionArr);
+                console.log(permissionArr);
               }}
             >
               Update
@@ -72,29 +95,45 @@ function Permissions() {
 
             <div className="permissionList">
               <ul>
-                {["Create", "View", "Update", "Delete"].map((e, i) => {
-                  return (
-                    <li
-                      className={addPermissionArr.includes(e) ? "selected" : ""}
-                      onClick={() => {
-                        if (!addPermissionArr.includes(e)) {
-                          setAddPermissionArr((p) => [...p, e]);
-                        } else {
-                          let ogArr = addPermissionArr;
-                          ogArr.splice(addPermissionArr.indexOf(e), 1);
-                          setAddPermissionArr([...ogArr]);
-                        }
-                      }}
-                    >
-                      {e}
-                    </li>
-                  );
-                })}
+                {["can_add", "can_view", "can_update", "can_delete"].map(
+                  (e, i) => {
+                    return (
+                      <li
+                        className={permissionArr.includes(e) ? "selected" : ""}
+                        onClick={() => {
+                          if (!permissionArr.includes(e)) {
+                            setPermissionArr((p) => [...p, e]);
+                          } else {
+                            let ogArr = permissionArr;
+                            ogArr.splice(permissionArr.indexOf(e), 1);
+                            setPermissionArr([...ogArr]);
+                          }
+                        }}
+                      >
+                        {e}
+                      </li>
+                    );
+                  }
+                )}
               </ul>
             </div>
             <button
               onClick={() => {
-                console.log(addPermissionArr);
+                // console.log(permissionArr);
+                AxiosInstances.post("/permissions", {
+                  usergroup: usergroup,
+                  permissions: permissionArr,
+                })
+                  .then((res) => {
+                    console.log(res);
+                  })
+                  .catch((err) => console.log(err));
+                /* AxiosInstances.get("/list_permissions").then((res) => {
+                  console.log(res);
+                  setApiRes(res.data.data);
+                }); */
+                setUserGroup("");
+                setPermissionArr([]);
               }}
             >
               Update

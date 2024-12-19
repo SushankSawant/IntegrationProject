@@ -1,23 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 function Dashboard() {
-  let usergroup = localStorage.getItem("usergroup");
+  // let usergroup = localStorage.getItem("usergroup");
+  let permissions = JSON.parse(localStorage.getItem("permissions"));
+
+  useEffect(() => {
+    if (!permissions.includes("can_view") && !permissions.includes("can_add")) {
+      navigate("/");
+    }
+  }, []);
   const navigate = useNavigate();
 
   return (
     <div className="homeWrapper">
       <div className="boxHolder">
-        <div className="box">
-          <h1>View</h1>
-          <p
-            onClick={() => {
-              navigate("userlist");
-            }}
-          >
-            Users
-          </p>
-          {usergroup == "superadmin" && (
+        {permissions.includes("can_view") && (
+          <div className="box">
+            <h1>View</h1>
+            <p
+              onClick={() => {
+                navigate("userlist");
+              }}
+            >
+              Users
+            </p>
+
             <p
               onClick={() => {
                 navigate("usergroups");
@@ -25,27 +33,30 @@ function Dashboard() {
             >
               User Groups
             </p>
-          )}
-        </div>
+          </div>
+        )}
         <div className="box">
           <h1>Action</h1>
-          <p
-            onClick={() => {
-              navigate("adduser");
-            }}
-          >
-            Add Users
-          </p>
-          {usergroup == "superadmin" && (
-            <p
-              onClick={() => {
-                navigate("addusergroup");
-              }}
-            >
-              Add Usergroup
-            </p>
+          {permissions.includes("can_add") && (
+            <>
+              <p
+                onClick={() => {
+                  navigate("adduser");
+                }}
+              >
+                Add Users
+              </p>
+              <p
+                onClick={() => {
+                  navigate("addusergroup");
+                }}
+              >
+                Add Usergroup
+              </p>
+            </>
           )}
-          {usergroup == "superadmin" && (
+
+          {permissions.includes("can_update") && (
             <p
               onClick={() => {
                 navigate("updatedata");
@@ -54,7 +65,7 @@ function Dashboard() {
               Update Profile
             </p>
           )}
-          {usergroup == "superadmin" && (
+          {
             <p
               onClick={() => {
                 navigate("changepassword");
@@ -62,7 +73,7 @@ function Dashboard() {
             >
               Change Password
             </p>
-          )}
+          }
         </div>
       </div>
       <div className="display">

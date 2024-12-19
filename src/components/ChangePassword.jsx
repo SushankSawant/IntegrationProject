@@ -133,6 +133,7 @@ function ChangePassword() {
           id={"username"}
           title={"User Name"}
           value={detail.username}
+          placeHolder={"Enter Username"}
           onChange={(e) => {
             setDetail((p) => ({ ...p, username: e.target.value }));
           }}
@@ -141,6 +142,7 @@ function ChangePassword() {
         <InputBox
           id={"oldpassword"}
           title={"Current Password"}
+          placeHolder={"Enter Current Password"}
           type={"password"}
           value={detail.oldpassword}
           onChange={(e) =>
@@ -181,6 +183,7 @@ function ChangePassword() {
             type={"password"}
             value={detail.newpassword}
             // className={errorFound.password ? "error" : ""}
+            placeHolder={"Enter New Password"}
             onChange={(e) => handlePasswordChange(e)}
             onFocus={() => {
               // console.log("object");

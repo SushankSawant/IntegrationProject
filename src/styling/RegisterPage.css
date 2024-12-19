@@ -80,7 +80,7 @@
 }
 
 h1 {
-  color: #9c9c9c;
+  color: var(--whitefont);
 }
 
 .formButton {
@@ -127,8 +127,8 @@ h1 {
   justify-content: space-around;
   padding: 5px;
   width: 160px;
-  background-color: transparent;
-  color: var(--whitefont);
+  background-color: var(--blueback);
+  color: var(--greyback);
   border: 2px solid var(--whitefont);
   border-radius: 5px;
   cursor: pointer;
@@ -172,7 +172,7 @@ h1 {
   z-index: 100;
   height: 150px;
   background-color: #222831;
-  color: var(--bluefont);
+  color: var(--greyback);
   width: 100%;
   list-style: none;
   overflow: auto;
@@ -232,7 +232,7 @@ h1 {
 
 .active_dd_option {
   background-color: var(--blueback);
-  color: var(--whitefont);
+  color: var(--greyback);
 }
 
 .dropContent.dropContent-open {
@@ -274,7 +274,7 @@ h1 {
   padding: 10px;
   width: 100%;
   font-size: 1.3vw;
-  background-color: #393e46;
-  color: #eeeeee;
+  background-color: var(--greyback);
+  color: var(--whitefont);
   border-radius: 10px;
 }

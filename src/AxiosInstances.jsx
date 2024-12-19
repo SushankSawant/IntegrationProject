@@ -59,10 +59,12 @@ AxiosInstances.interceptors.response.use(
         ] = `Bearer ${newToken.access_token}`;
         return AxiosInstances(originalReq);
       } catch (refreshError) {
-        console.log("INSIDE CATCH", refreshError);
+        // console.log("INSIDE CATCH", refreshError);
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         localStorage.removeItem("username");
+        localStorage.removeItem("usergroup");
+        localStorage.removeItem("permissions");
         location.reload();
         // localStorage.setItem("expired", true);
         // navigate("/login");
