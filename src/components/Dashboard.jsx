@@ -8,8 +8,8 @@ function Dashboard() {
   return (
     <div className="homeWrapper">
       <div className="boxHolder">
-        <h1>View</h1>
         <div className="box">
+          <h1>View</h1>
           <p
             onClick={() => {
               navigate("userlist");
@@ -27,8 +27,8 @@ function Dashboard() {
             </p>
           )}
         </div>
-        <h1>Action</h1>
         <div className="box">
+          <h1>Action</h1>
           <p
             onClick={() => {
               navigate("adduser");

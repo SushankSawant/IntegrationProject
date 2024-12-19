@@ -6,16 +6,40 @@
   transition: 0.5s all ease;
 }
 
+body {
+  background-color: var(--greyback);
+}
+
+:root {
+  --blueback: #00adb5;
+  --greyback: #393e46;
+  --whitefont: #eeeeee;
+  --lightgreyback: #272727;
+  --bluefont: #00adb5;
+  --glassback: #211a1a73;
+  /* --darkbluefont: #0864b1; */
+  /* --whitecard: #fff; */
+}
+
+/* [data-theme="dark"] {
+  --blueback: #3e3e3e;
+  --whiteback: #3e3e3e;
+  --greyback: #292929;
+  --whitebackfont: #fff;
+  --darkbluefont: #55b3ff;
+  --whitecard: #1d1d1d;
+} */
+
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #393e46;
+  background: var(--greyback);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00adb5;
+  background: var(--blueback);
   border-radius: 20px;
 }
 
@@ -24,12 +48,12 @@
 }
 
 ::selection {
-  background-color: #00adb5;
+  background-color: var(--blueback);
 }
 
 .homeWrapper {
   display: flex;
-  background-color: #393e46;
+  background-color: var(--greyback);
   align-items: center;
   justify-content: space-between;
   padding: 20px;
@@ -54,7 +78,7 @@ table {
   position: relative;
   thead {
     /* border-radius: 20px; */
-    background-color: #434343;
+    background-color: var(--lightgreyback);
     color: #fff;
     th {
       border-radius: 5px;
@@ -63,11 +87,11 @@ table {
     }
   }
   tbody {
-    background-color: #000000;
-    color: #00adb5;
+    background-color: var(--greyback);
+    color: var(--blueback);
     tr {
       &&:nth-child(even) {
-        background-color: #373737;
+        background-color: var(--lightgreyback);
       }
       td {
         padding: 10px;
@@ -88,7 +112,7 @@ table {
   margin-top: 10px;
   /* margin: 20px; */
   z-index: 50;
-  background-color: #211a1a73;
+  background-color: var(--glassback);
   backdrop-filter: blur(2px);
   border-radius: 10px;
   position: sticky;
@@ -107,11 +131,11 @@ table {
     background-color: #1f1f1f;
     border: none;
     border-radius: 10px;
-    color: #00adb5;
+    color: var(--blueback);
     transition: 0.5s all ease;
     cursor: pointer;
     &&:hover {
-      background-color: #00adb5;
+      background-color: var(--blueback);
       color: #fff;
     }
   }
@@ -136,7 +160,7 @@ table {
   }
 
   .page-button.activePage {
-    background-color: #00adb5;
+    background-color: var(--blueback);
     color: #fff;
     border-radius: 50%;
     transform: scale(1.5);
@@ -159,7 +183,7 @@ table {
   .box {
     background-color: #1f1f1f;
     /* height: 250px; */
-    color: #00adb5;
+    color: var(--blueback);
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -167,14 +191,14 @@ table {
     gap: 5px;
     p {
       border-radius: 5px;
-      background-color: #393e46;
+      background-color: var(--greyback);
       padding: 10px;
       font-size: 20px;
       cursor: pointer;
       text-transform: capitalize;
 
       &&:hover {
-        background-color: #393e469f;
+        background-color: var(--greyback) 9f;
       }
     }
   }
@@ -184,7 +208,7 @@ table {
   box-shadow: 0px 0px 20px #0000006d;
   background-color: #1f1f1f;
   /* height: 250px; */
-  color: #00adb5;
+  color: var(--blueback);
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -193,7 +217,7 @@ table {
   p {
     cursor: auto;
     position: relative;
-    background-color: #393e46;
+    background-color: var(--greyback);
     padding: 10px;
     font-size: 20px;
     cursor: pointer;
@@ -291,7 +315,7 @@ table {
   .permissionBox {
     width: 50%;
     padding: 10px;
-    background-color: #1f1f1f;
+    background-color: var(--lightgreyback);
     border-radius: 10px;
 
     .search_userList {
@@ -305,7 +329,7 @@ table {
       overflow-y: auto;
       height: 200px;
       margin-top: 5px;
-      background-color: #2d2d2d;
+      background-color: var(--greyback);
       /* padding: 5px; */
       ul {
         display: flex;

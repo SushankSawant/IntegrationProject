@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import axios from "axios";
-import Dropdown from "./DropDown";
-import { useAuth } from "./Context/AuthContext";
+import Dropdown from "./Dropdown";
+import { useAuth } from "../Context/AuthContext";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import AxiosInstances from "./AxiosInstances";
+import AxiosInstances from "../AxiosInstances";
 
 function UserTable({ role }) {
   let usergroup = localStorage.getItem("usergroup");

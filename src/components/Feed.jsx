@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import "./Context/Feed.css";
+import "../styling/Feed.css";
 import Card from "./Card";
-import AxiosInstances from "./AxiosInstances";
+import AxiosInstances from "../AxiosInstances";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Pagination from "./Pagination";
-import Dropdown from "./DropDown";
+import Dropdown from "./Dropdown";
 
 function Feed() {
   const [feedArray, setFeedArray] = useState();

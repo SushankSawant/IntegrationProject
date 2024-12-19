@@ -1,5 +1,5 @@
 import React from "react";
-import arrow from "././images/leftArrow.png";
+import arrow from "../images/leftArrow.png";
 
 const Pagination = ({
   currPage,

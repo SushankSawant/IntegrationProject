@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import dropArror from "././images/dropdown.png";
+import dropArror from "../images/dropdown.png";
 
 function Dropdown({
   dropTitle,

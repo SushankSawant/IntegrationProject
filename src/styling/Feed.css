@@ -78,10 +78,10 @@
   color: #8f8f8f;
   text-align: left;
   /* justify-content: space-around; */
-  background-color: #1f1f1f;
+  background-color: var(--lightgreyback);
 
   h3 {
-    color: #00adb5;
+    color: var(--bluefont);
     margin-bottom: 8px;
   }
 
@@ -167,7 +167,7 @@ img {
     width: 60px;
   }
   p {
-    color: #fff;
+    color: var(--whitefont);
     font-weight: bold;
   }
 }

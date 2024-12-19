@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import InputBox from "./InputBox";
 import { useNavigate } from "react-router-dom";
-import AxiosInstances from "./AxiosInstances";
+import AxiosInstances from "../AxiosInstances";
 import axios from "axios";
 import Dropdown from "./Dropdown";
 
@@ -137,7 +137,7 @@ function UpdateData({ role }) {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="login_page">
         {
           <form className="validationForm" onSubmit={handleSubmit}>

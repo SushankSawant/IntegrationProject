@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import InputBox from "./InputBox";
 import Navbar from "./Navbar";
 import axios from "axios";
-import { useAuth } from "./Context/AuthContext";
+// import { useAuth } from "./Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import AxiosInstances from "./AxiosInstances";
+import AxiosInstances from "../AxiosInstances";
 
 function AddUserGroup({ role }) {
   const [usergroup, setUserGroupArr] = useState({ usergroup: "" });

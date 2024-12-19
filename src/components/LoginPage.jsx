@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import InputBox from "./InputBox";
-import "./LoginPage.css";
+import "../styling/LoginPage.css";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./Context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import axios, { AxiosHeaders } from "axios";
 
 function LoginPage() {

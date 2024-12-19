@@ -2,21 +2,22 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import LoginPage from "./LoginPage";
+import LoginPage from "./components/LoginPage.jsx";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import RegisterPage from "./RegisterPage";
-import Home from "./Home";
-import PrivateRoute from "./PrivateRoute";
-import ChangePassword from "./ChangePassword";
-import UserGroup from "./UserGroup";
-import AddUserGroup from "./AddUserGroup";
-import UpdateData from "./UpdateData";
-import UserTable from "./UserTable";
-import Feed from "./Feed";
-import NewsFull from "./NewsFull";
-import Dashboard from "./Dashboard";
-import Permissions from "./Permissions";
-import AddUser from "./AddUser";
+import RegisterPage from "./components/RegisterPage";
+import Home from "./components/Home";
+import PrivateRoute from "./components/PrivateRoute";
+import ChangePassword from "./components/ChangePassword";
+import UserGroup from "./components/UserGroup";
+import AddUserGroup from "./components/AddUserGroup";
+import UpdateData from "./components/UpdateData";
+import UserTable from "./components/UserTable";
+import Feed from "./components/Feed";
+import NewsFull from "./components/NewsFull";
+import Dashboard from "./components/Dashboard";
+import Permissions from "./components/Permissions";
+import AddUser from "./components/AddUser";
+import LandingPage from "./components/LandingPage.jsx";
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -29,12 +30,13 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route element={<PrivateRoute />}>
             <Route element={<Home />} path="/" exact>
+              <Route index element={<LandingPage />} />
               <Route element={<Permissions />} path="/permissions" />
               <Route
                 element={<UpdateData role={["superadmin"]} />}
                 path="/updatedata"
               />
-              <Route index element={<Dashboard />} path="/dashboard" />
+              {/* <Route element={<Dashboard />} path="/dashboard" /> */}
 
               <Route element={<Dashboard />} path="/dashboard">
                 <Route

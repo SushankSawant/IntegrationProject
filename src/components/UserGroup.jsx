@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import AxiosInstances from "./AxiosInstances";
+import AxiosInstances from "../AxiosInstances";
 import { useNavigate } from "react-router-dom";
 
 function UserGroup({ role }) {

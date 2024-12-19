@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "./Context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 // import AxiosInstances from "./AxiosInstances";
 
 function Navbar() {

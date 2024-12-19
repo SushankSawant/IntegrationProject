@@ -2,10 +2,6 @@
   outline: 1px red solid;
 } */
 
-body {
-  background-color: #393e46;
-}
-
 .login_page {
   /* background-color: #f1f0e8; */
   /* background: url("src/images/abstract-dark-blue-futuristic-digital-grid-background.jpg"); */
@@ -22,7 +18,7 @@ body {
 }
 
 .form_title {
-  color: #00adb5;
+  color: var(--bluefont);
   font-weight: bold;
   font-size: 40px;
 }
@@ -35,7 +31,7 @@ body {
   align-items: center;
   gap: 15px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  background: #22283145;
+  background: var(--glassback);
   backdrop-filter: blur(2px);
   border-radius: 10px;
   padding: 50px;
@@ -66,17 +62,17 @@ button {
   border: none;
   margin-top: 5px;
   border-radius: 10px;
-  color: #eeeeee;
-  background-color: #00adb5;
+  color: var(--whitefont);
+  background-color: var(--blueback);
   &&:hover {
-    background-color: #393e46;
-    color: #00adb5;
+    background-color: var(--greyback);
+    color: var(--bluefont);
     cursor: pointer;
   }
 }
 
 a {
-  color: #00adb5;
+  color: var(--bluefont);
 }
 
 .inputHolder {
@@ -86,7 +82,7 @@ a {
   flex-direction: column;
   gap: 8px;
   label {
-    color: #eeeeee;
+    color: var(--whitefont);
     font-size: 23px;
     text-align: left;
   }
@@ -107,8 +103,8 @@ a {
     opacity: 0;
   }
   .input__style {
-    color: #eeeeee;
-    background-color: #393e46;
+    color: var(--whitefont);
+    background-color: var(--greyback);
     border: none;
     outline: none;
     font-size: 20px;

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 // import "./LoginPage.css";
-import "./styling/RegisterPage.css";
+import "../styling/RegisterPage.css";
 import InputBox from "./InputBox";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./Context/AuthContext";
-import AxiosInstances from "./AxiosInstances";
+import { useAuth } from "../Context/AuthContext";
+import AxiosInstances from "../AxiosInstances";
 import Dropdown from "./Dropdown";
 
 function RegisterPage() {

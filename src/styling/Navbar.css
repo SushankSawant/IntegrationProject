@@ -1,5 +1,5 @@
 nav {
-  background-color: #211a1a5f;
+  background-color: var(--glassback);
   backdrop-filter: blur(3px);
   /* color: #222831; */
   padding: 1.1vw;
@@ -11,9 +11,9 @@ nav {
   width: 100%;
   z-index: 10;
   h1 {
-    color: #fff;
+    color: var(--whitefont);
     font-size: 1.6vw;
-    text-shadow: 0px 0px 20px #ffffff;
+    text-shadow: 0px 0px 20px var(--whitefont);
   }
 
   ul {
@@ -32,7 +32,7 @@ nav {
     text-align: center;
     /* background-color: #00acb56b; */
     padding: 15px;
-    color: #fff;
+    color: var(--whitefont);
     list-style: none;
     border-radius: 10px;
     cursor: pointer;

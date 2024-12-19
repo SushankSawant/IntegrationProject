@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InputBox from "./InputBox";
 // import Dropdown from "./DropDown";
-import AxiosInstances from "./AxiosInstances";
+import AxiosInstances from "../AxiosInstances";
 import Navbar from "./Navbar";
 import Dropdown from "./Dropdown";
 import axios from "axios";

@@ -1,7 +1,7 @@
 import React from "react";
 // import "./InputBox.css";
-import openEye from "./assets/images/openEye.png";
-import closedEye from "./assets/images/closedEye.png";
+import openEye from "../images/openEye.png";
+import closedEye from "../images/closedEye.png";
 
 function InputBox({ title = "", type = "text", id, errorFound, ...props }) {
   function toggleIcon() {

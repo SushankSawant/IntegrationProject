@@ -54,7 +54,7 @@
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  background: #22283145;
+  background: var(--glassback);
   backdrop-filter: blur(2px);
   border-radius: 10px;
   align-items: center;
@@ -128,8 +128,8 @@ h1 {
   padding: 5px;
   width: 160px;
   background-color: transparent;
-  color: #fff;
-  border: 2px solid #fff;
+  color: var(--whitefont);
+  border: 2px solid var(--whitefont);
   border-radius: 5px;
   cursor: pointer;
   overflow: hidden;
@@ -143,7 +143,7 @@ h1 {
       position: absolute;
       right: 10px;
       border-radius: 50%;
-      background-color: #00adb5;
+      background-color: var(--blueback);
       z-index: 10;
       box-shadow: -1px 0px 5px rgb(0, 0, 0);
     }
@@ -172,7 +172,7 @@ h1 {
   z-index: 100;
   height: 150px;
   background-color: #222831;
-  color: #00adb5;
+  color: var(--bluefont);
   width: 100%;
   list-style: none;
   overflow: auto;
@@ -189,7 +189,7 @@ h1 {
   input {
     /* padding-left: 10px; */
     background-color: #2228319b;
-    color: #fff;
+    color: var(--whitefont);
     width: 100%;
     outline: none;
     border: none;
@@ -217,8 +217,8 @@ h1 {
     justify-content: space-between;
 
     &&:hover {
-      background-color: #00adb5;
-      color: white;
+      background-color: var(--blueback);
+      color: var(--whitefont);
     }
     img {
       width: 15px;
@@ -231,8 +231,8 @@ h1 {
 }
 
 .active_dd_option {
-  background-color: #00adb5;
-  color: white;
+  background-color: var(--blueback);
+  color: var(--whitefont);
 }
 
 .dropContent.dropContent-open {
