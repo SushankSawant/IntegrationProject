@@ -135,7 +135,10 @@ function ChangePassword() {
           value={detail.username}
           placeHolder={"Enter Username"}
           onChange={(e) => {
-            setDetail((p) => ({ ...p, username: e.target.value }));
+            setDetail((p) => ({
+              ...p,
+              username: e.target.value.toLowerCase(),
+            }));
           }}
         />
 

@@ -12,7 +12,7 @@ function LandingPage() {
     >
       <h1>
         WELCOME {localStorage.getItem("username").toUpperCase()} (
-        {localStorage.getItem("usergroup").toUpperCase()})
+        {localStorage.getItem("usergroup").toUpperCase()}) 😎
       </h1>
     </div>
   );

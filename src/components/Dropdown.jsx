@@ -164,7 +164,6 @@ function Dropdown({
                     ? handleAddArray(e, i)
                     : handleAddString(e, i)
                 }
-                // ref={selectedEle === e && selectedRef}
               >
                 {dataType === "string" ? e : e[dataToDisplay]}
                 {/*  {dataType == "string"

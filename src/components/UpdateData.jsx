@@ -11,6 +11,11 @@ function UpdateData({ /* role , */ reqPermission }) {
     let permissions = JSON.parse(localStorage.getItem("permissions"));
     if (!permissions.includes("can_update")) {
       navigate("/");
+    } else {
+      AxiosInstances.get("/list_usergroups").then((res) => {
+        console.log(res);
+        setUserGroupArr(res.data.data);
+      });
     }
     /*  if (!role.includes(usergroup)) {
       navigate("/");
@@ -28,13 +33,6 @@ function UpdateData({ /* role , */ reqPermission }) {
     // phone_number: "",
     usergroup: "",
   });
-
-  useEffect(() => {
-    AxiosInstances.get("/list_usergroups").then((res) => {
-      console.log(res);
-      setUserGroupArr(res.data.data);
-    });
-  }, []);
 
   const [apiRes, setApiRes] = useState();
 

@@ -16,20 +16,22 @@ function AddUser({ role }) {
   useEffect(() => {
     if (!permissions.includes("can_add")) {
       navigate("/");
-    }
-    /*   let usergroup = localStorage.getItem("usergroup");
+    } else {
+      /*   let usergroup = localStorage.getItem("usergroup");
     if (!role.includes(usergroup)) {
       navigate("/");
     } */
 
-    AxiosInstances.get(
+      AxiosInstances.get(
+        /* 
       localStorage.getItem("usergroup") == "superadmin"
-        ? "/list_usergroups"
-        : "/list_usergroups_member"
-    ).then((res) => {
-      console.log(res);
-      setUserGroupArr(res.data.data);
-    });
+        ?  */ "/list_usergroups"
+        /*  : "/list_usergroups_member" */
+      ).then((res) => {
+        console.log(res);
+        setUserGroupArr(res.data.data);
+      });
+    }
   }, []);
 
   const [detail, setDetail] = useState({

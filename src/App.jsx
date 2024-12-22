@@ -45,13 +45,7 @@ function App() {
               {/* <Route element={<Dashboard />} path="/dashboard" /> */}
 
               <Route element={<Dashboard />} path="/dashboard">
-                <Route
-                  index
-                  element={
-                    <UserTable /* role={["superadmin", "admin"]} */ /* permissions={"can_view"}  */
-                    />
-                  }
-                />
+                {/* <Route index element={<UserTable />} /> */}
                 <Route element={<ChangePassword />} path="changepassword" />
 
                 <Route

@@ -35,7 +35,8 @@ function Navbar() {
           Home
         </li> */}
         {(permissions.includes("can_view") ||
-          permissions.includes("can_add")) && (
+          permissions.includes("can_add") ||
+          permissions.includes("can_update")) && (
           <li
             onClick={() => {
               navigate("/dashboard");
@@ -52,13 +53,15 @@ function Navbar() {
         >
           Add User
         </li> */}
-        <li
-          onClick={() => {
-            navigate("/feed");
-          }}
-        >
-          Feed
-        </li>
+        {permissions.includes("can_view") && (
+          <li
+            onClick={() => {
+              navigate("/feed");
+            }}
+          >
+            Feed
+          </li>
+        )}
         {/* <li
           onClick={() => {
             navigate("/changepassword");

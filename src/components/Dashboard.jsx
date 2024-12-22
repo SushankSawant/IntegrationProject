@@ -6,7 +6,11 @@ function Dashboard() {
   let permissions = JSON.parse(localStorage.getItem("permissions"));
 
   useEffect(() => {
-    if (!permissions.includes("can_view") && !permissions.includes("can_add")) {
+    if (
+      !permissions.includes("can_view") &&
+      !permissions.includes("can_add") &&
+      !permissions.includes("can_update")
+    ) {
       navigate("/");
     }
   }, []);
@@ -23,7 +27,7 @@ function Dashboard() {
                 navigate("userlist");
               }}
             >
-              Users
+              Userlist
             </p>
 
             <p
@@ -31,7 +35,7 @@ function Dashboard() {
                 navigate("usergroups");
               }}
             >
-              User Groups
+              Usergroup list
             </p>
           </div>
         )}
@@ -44,7 +48,7 @@ function Dashboard() {
                   navigate("adduser");
                 }}
               >
-                Add Users
+                Add User
               </p>
               <p
                 onClick={() => {

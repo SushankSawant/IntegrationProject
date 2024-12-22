@@ -10,6 +10,7 @@ import SearchSvg from "../images/SearchSvg";
 function UserTable({ role }) {
   let usergroup = localStorage.getItem("usergroup");
   let permissions = JSON.parse(localStorage.getItem("permissions"));
+  // console.log(permissions, "localPermissions");
 
   const [searchParam, setSearchParam] = useSearchParams();
   console.log(useLocation());
@@ -22,7 +23,7 @@ function UserTable({ role }) {
   });
 
   const [userArr, setUserArr] = useState(null);
-  let label = [
+  /* let labels = [
     "firstname",
     "lastname",
     "username",
@@ -30,23 +31,35 @@ function UserTable({ role }) {
     "phone_number",
     "usergroup",
     "datetime",
-  ];
+  ]; */
   const navigate = useNavigate();
-  useEffect(() => {
+
+  /*   useEffect(() => {
     if (!permissions.includes("can_view")) {
       navigate("/");
     }
+  }, []); */
+
+  useEffect(() => {
+    /*     if (!permissions.includes("can_view")) {
+      navigate("/");
+    }
+ */
     /*  let usergroup = localStorage.getItem("usergroup");
     if (!role.includes(usergroup)) {
       navigate("/");
     } */
-    callUserListApi();
-    // if (currPage != 1) {
-    setSearchParam((params) => {
-      params.set("pageno", currPage);
-      params.set("dataLength", searchInput.number);
-      return params;
-    });
+    if (permissions.includes("can_view")) {
+      callUserListApi();
+      // if (currPage != 1) {
+      setSearchParam((params) => {
+        params.set("pageno", currPage);
+        params.set("dataLength", searchInput.number);
+        return params;
+      });
+    } else {
+      navigate("/");
+    }
     // }
   }, [currPage, searchInput.number]);
 
@@ -64,8 +77,20 @@ function UserTable({ role }) {
           setUserArr(res.data);
           console.log(res);
         }
-      })
+      }) /*  */
       .catch((err) => console.log(err));
+    /*  AxiosInstances.get(
+      `/list_users?page_no=${currPage}&page_size=${
+        searchInput.number === "" ? 10 : searchInput.number
+      }&username=${searchInput.word}`
+    )
+      .then((res) => {
+        if (res?.status === 200) {
+          setUserArr(res.data);
+          console.log(res);
+        }
+      })
+      .catch((err) => console.log(err)); */
   }
   return (
     <div>
@@ -86,10 +111,22 @@ function UserTable({ role }) {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                AxiosInstances.get(
+                /*  AxiosInstances.get(
                   `/${
                     usergroup == "superadmin" ? "list_users" : "list_members"
                   }?page_no=${currPage}&page_size=${
+                    searchInput.number === "" ? 10 : searchInput.number
+                  }&username=${searchInput.word}`
+                )
+                  .then((res) => {
+                    if (res?.status === 200) {
+                      setUserArr(res.data);
+                      console.log(res);
+                    }
+                  })
+                  .catch((err) => console.log(err)); */
+                AxiosInstances.get(
+                  `/list_users?page_no=${currPage}&page_size=${
                     searchInput.number === "" ? 10 : searchInput.number
                   }&username=${searchInput.word}`
                 )
@@ -137,7 +174,7 @@ function UserTable({ role }) {
               <thead>
                 <tr>
                   <th>Sr. No.</th>
-                  {label.map((e, i) => {
+                  {userArr?.["labels"].map((e, i) => {
                     return <th key={`tablehead_${i}`}>{e}</th>;
                   })}
                   {permissions.includes("can_delete") && <th></th>}
@@ -158,7 +195,7 @@ function UserTable({ role }) {
                         /> */}
                           {i + (currPage - 1) * searchInput.number + 1}
                         </td>
-                        {label.map((userData, i) => {
+                        {userArr?.["labels"].map((userData, i) => {
                           return (
                             <td key={`tabledetail_${i}`}>
                               {userRow[userData]}

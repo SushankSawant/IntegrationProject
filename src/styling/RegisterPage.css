@@ -53,6 +53,7 @@
 .validationForm {
   display: flex;
   flex-direction: column;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.334);
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: var(--glassback);
   backdrop-filter: blur(2px);
