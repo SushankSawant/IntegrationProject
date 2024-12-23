@@ -7,15 +7,16 @@ import { useNavigate } from "react-router-dom";
 
 function Permissions({ role }) {
   const [usergroup, setUserGroup] = useState("");
-  const [apiRes, setApiRes] = useState([
+  const [apiRes, setApiRes] = useState(
+    null /* [
     { usergroup: "admin", permissions: ["can_add", "can_view"] },
     { usergroup: "member", permissions: ["can_add"] },
-  ]);
+  ] */
+  );
   const [permissionArr, setPermissionArr] = useState([]);
   const [message, setMessage] = useState({ message: "", type: "" });
   const navigate = useNavigate();
 
-  // console.log(usergroup, permissionArr, apiRes);
   useEffect(
     () => {
       let localUsergroup = localStorage.getItem("usergroup");
@@ -39,13 +40,85 @@ function Permissions({ role }) {
   );
 
   // console.log({ usergroup: usergroup, permission: permissionArr });
-  console.log(1212, apiRes);
+  // console.log(1212, apiRes);
 
   return (
     <>
       <div className="permission_wrapper">
         {message?.message !== "" && (
-          <p className={message.type}>{message.message}</p>
+          <p className={message.type}>
+            {message.message}
+            {message.message == "Do you want to update permissions?" && (
+              <>
+                <button
+                  style={{ marginLeft: "5px", padding: "3px" }}
+                  onClick={() => {
+                    if (
+                      JSON.stringify(
+                        apiRes[
+                          apiRes?.findIndex(
+                            (apiResEle) => apiResEle["usergroup"] == usergroup
+                          )
+                        ]["permissions"]
+                      ) !== JSON.stringify(permissionArr) &&
+                      usergroup &&
+                      permissionArr
+                    ) {
+                      AxiosInstances.post("/permissions", {
+                        usergroup: usergroup,
+                        permissions: permissionArr,
+                      })
+                        .then((res) => {
+                          console.log(res);
+                          setMessage({
+                            message: "Permissions successfully updated!",
+                            type: "successPop",
+                          });
+                        })
+                        .catch((err) => {
+                          setMessage({
+                            message: "Permissions updating failed!",
+                            type: "errorPop",
+                          });
+                          console.log(err);
+                        });
+                      setUserGroup("");
+                      setPermissionArr([]);
+                      AxiosInstances.get("/list_permissions").then((res) => {
+                        console.log(res);
+                        setApiRes(res.data.data);
+                      });
+                    }
+                  }}
+                >
+                  Yes
+                </button>
+                <button
+                  style={{ marginLeft: "5px", padding: "3px" }}
+                  onClick={() => {
+                    // setUserGroup("");
+
+                    setPermissionArr(
+                      apiRes[
+                        apiRes?.findIndex(
+                          (apiResEle) => apiResEle["usergroup"] == usergroup
+                        )
+                      ]["permissions"]
+                        ? apiRes[
+                            apiRes?.findIndex(
+                              (apiResEle) => apiResEle["usergroup"] == usergroup
+                            )
+                          ]["permissions"]
+                        : []
+                    );
+                    setMessage("");
+                  }}
+                >
+                  No
+                </button>
+              </>
+            )}
+          </p>
         )}
         <h1>Permissions</h1>
         {/* <div className="dropdownHolder">
@@ -93,13 +166,14 @@ function Permissions({ role }) {
                         setUserGroup((p) => {
                           if (
                             usergroup &&
+                            permissionArr.length > 0 &&
                             JSON.stringify(
                               apiRes[
                                 apiRes?.findIndex(
                                   (apiResEle) => apiResEle["usergroup"] == p
                                 )
-                              ]?.["permissions"]
-                            ) !== JSON.stringify(permissionArr)
+                              ]?.["permissions"]?.sort()
+                            ) !== JSON.stringify(permissionArr?.sort())
                           ) {
                             /*         console.log("prev permission array", permissionArr);
                           console.log(
@@ -118,12 +192,47 @@ function Permissions({ role }) {
                               )
                             ]?.["permissions"] == permissionArr
                           ); */
-                            alert("PLEASEE UPDATE THE CHANGED PERMISSION");
+                            // alert("PLEASEE UPDATE THE CHANGED PERMISSION");
+                            setMessage({
+                              message: "Do you want to update permissions?",
+                              type: "errorPop",
+                            });
                             setUserGroup(p);
                             return;
                           } else {
-                            // setPermissionArr(e.permissions ? e.permissions : []);
-                            if (
+                            console.log(
+                              "API RES PERMS",
+                              JSON.stringify(
+                                apiRes[
+                                  apiRes?.findIndex(
+                                    (apiResEle) => apiResEle["usergroup"] == p
+                                  )
+                                ]?.["permissions"]
+                              )
+                            );
+
+                            console.log(
+                              "permArr",
+                              JSON.stringify(permissionArr)
+                            );
+
+                            setPermissionArr(
+                              apiRes[
+                                apiRes?.findIndex(
+                                  (apiResEle) =>
+                                    apiResEle["usergroup"] == selected
+                                )
+                              ]["permissions"]
+                                ? apiRes[
+                                    apiRes?.findIndex(
+                                      (apiResEle) =>
+                                        apiResEle["usergroup"] == selected
+                                    )
+                                  ]["permissions"]
+                                : []
+                            );
+
+                            /* if (
                               apiRes[
                                 apiRes?.findIndex(
                                   (e) => e["usergroup"] == selected
@@ -140,8 +249,13 @@ function Permissions({ role }) {
                               );
                             } else {
                               setPermissionArr([]);
-                            }
-                            return selected;
+                            } */
+
+                            setMessage({
+                              message: "",
+                              type: "",
+                            });
+                            return usergroup == selected ? "" : selected;
                           }
                         });
                         /* if (
@@ -197,8 +311,8 @@ function Permissions({ role }) {
               </ul>
             </div>
           </div>
-          {
-            /* usergroup && */ <div className="permissionBox">
+          {usergroup && (
+            <div className="permissionBox">
               <h1>Permission List</h1>
               <div className="permissionList">
                 <ul>
@@ -271,7 +385,7 @@ function Permissions({ role }) {
                 Update
               </button>
             </div>
-          }
+          )}
           {/*     <div className="permissionBox">
             <h1>Granted Permissions</h1>
             <div className="permissionList">

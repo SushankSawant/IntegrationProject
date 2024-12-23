@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import "../styling/Feed.css";
 import Card from "./Card";
 import AxiosInstances from "../AxiosInstances";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Pagination from "./Pagination";
 import Dropdown from "./Dropdown";
@@ -11,6 +11,8 @@ import Dropdown from "./Dropdown";
 function Feed() {
   const [feedArray, setFeedArray] = useState();
   const [searchParam, setSearchParam] = useSearchParams();
+  let permissions = JSON.parse(localStorage.getItem("permissions"));
+  const navigate = useNavigate();
 
   const [currPage, setCurrPage] = useState(searchParam.get("pageno") || 1);
   const [searchInput, setSearchInput] = useState({
@@ -19,21 +21,25 @@ function Feed() {
   });
 
   useEffect(() => {
-    AxiosInstances.get(
-      `/view_data?page_no=${currPage}&page_size=${searchInput.number}&keyword=${searchInput.word}`
-    )
-      .then((res) => {
-        // console.log(res);
-        setFeedArray(res.data);
-      })
-      .catch((err) => console.log(err));
+    if (permissions.includes("can_view")) {
+      AxiosInstances.get(
+        `/view_data?page_no=${currPage}&page_size=${searchInput.number}&keyword=${searchInput.word}`
+      )
+        .then((res) => {
+          // console.log(res);
+          setFeedArray(res.data);
+        })
+        .catch((err) => console.log(err));
 
-    setSearchParam((params) => {
-      params.set("pageno", currPage);
-      params.set("dataLength", searchInput.number);
+      setSearchParam((params) => {
+        params.set("pageno", currPage);
+        params.set("dataLength", searchInput.number);
 
-      return params;
-    });
+        return params;
+      });
+    } else {
+      navigate("/");
+    }
   }, [currPage, searchInput.number]);
   // console.log(feedArray);
   return (

@@ -298,6 +298,7 @@ table {
   right: 20px;
   /* background-color: white; */
   background-color: var(--glassback);
+  z-index: 100;
 
   font-weight: bold;
   padding: 10px;
@@ -312,6 +313,7 @@ table {
   bottom: 20px;
   right: 20px;
   background-color: var(--glassback);
+  z-index: 100;
   font-weight: bold;
   padding: 10px;
   border-radius: 10px;

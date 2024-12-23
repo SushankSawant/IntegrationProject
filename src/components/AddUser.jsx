@@ -136,6 +136,8 @@ function AddUser({ role }) {
     "phone_number",
     "email",
     "password",
+    "usergroup",
+    "datetime",
   ];
 
   let submit;
@@ -243,9 +245,9 @@ function AddUser({ role }) {
                 )
               ) {
                 document.getElementById("email").classList.add("error");
-                // submit = false;
+                submit = false;
               } else {
-                // submit = true;
+                submit = true;
               }
             }}
             onChange={(e) => {

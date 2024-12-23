@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -18,9 +18,23 @@ import Dashboard from "./components/Dashboard";
 import Permissions from "./components/Permissions";
 import AddUser from "./components/AddUser";
 import LandingPage from "./components/LandingPage.jsx";
+import { useThemeContext } from "./Context/ThemeContext.jsx";
 
 function App() {
+  const { theme, setTheme, toggleTheme } = useThemeContext();
+
   // const [count, setCount] = useState(0);
+
+  useLayoutEffect(() => {
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme == "light") {
+      setTheme("light");
+      document.documentElement.setAttribute("data-theme", currentTheme);
+    } else {
+      setTheme("dark");
+      document.documentElement.setAttribute("data-theme", currentTheme);
+    }
+  }, []);
 
   return (
     <>
